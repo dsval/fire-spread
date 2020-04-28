@@ -1,5 +1,7 @@
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
-
+  var fpar = ee.ImageCollection("NOAA/CDR/AVHRR/LAI_FAPAR/V4")
+ .select('FAPAR')
+ .filterDate(start,end);
 var visParams = {
   min: 0.0,
   max: 350.0,
