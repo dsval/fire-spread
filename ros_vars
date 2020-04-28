@@ -1,5 +1,5 @@
-var dataset = ee.Image('WHRC/biomass/tropical');
-var liveWoodyBiomass = dataset.select('Mg');
+var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+
 var visParams = {
   min: 0.0,
   max: 350.0,
