@@ -35,10 +35,11 @@ print(monthly_evi,'evi');
 
  var palsar = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/SAR")
  .select('HH','HV')
- .filterDate(start,finish);
+.filterDate(ee.Date('2009-01-01'),ee.Date('2009-12-12'));
  //.pow(2).log10().multiply(10).subtract(83);
 print(palsar,'sar');
 
+var strct = biomass.addBands(sar).addBands(monthly_evi);
 var visParams = {
   min: 0.0,
   max: 350.0,
@@ -49,17 +50,11 @@ var visParams = {
   ],
 };
 //Map.setCenter(-69.43, 0.35, 3);
-Map.addLayer(biomass, visParams, 'Aboveground Live Woody Biomass');
-
-
-
-
-
-
-
-/*
-
 var shapes = ee.FeatureCollection("users/dsandovalhdh/fire_perimeter_2011");
+Map.addLayer(biomass, visParams, 'Aboveground Live Woody Biomass');
+Map.addLayer(shapes);
+
+
 var values = daily_prec.map(function(image) {
   return image.reduceRegions({
      collection: shapes,
