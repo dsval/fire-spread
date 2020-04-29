@@ -55,7 +55,7 @@ var visParams = {
 var shapes = ee.FeatureCollection("users/dsandovalhdh/fire_perimeter_2011");
 Map.addLayer(biomass, visParams, 'Aboveground Live Woody Biomass');
 //Map.addLayer(shapes);
-var values=strct.reduceRegions({
+var values= strct.reduceRegions({
      collection: shapes,
      reducer: ee.Reducer.mean(),
      scale: 250
