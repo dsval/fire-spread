@@ -37,7 +37,7 @@ print(monthly_evi,'evi');
  .select('HH','HV')
  .filterDate(start,end)
  .pow(2).log10().multiply(10).subtract(83);
-
+print(palsar,'sar');
 
 var visParams = {
   min: 0.0,
