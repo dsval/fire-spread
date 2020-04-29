@@ -1,7 +1,12 @@
 var start = ee.Date('2001-01-01');
 var finish = ee.Date('2015-12-31');
+var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+
+
+ee.ImageCollection("MODIS/006/MOD13Q1")
+
 
 var snow_terra = ee.ImageCollection("MODIS/006/MOD10A1")
         .filterDate(start, finish)
