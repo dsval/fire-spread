@@ -59,12 +59,12 @@ var values=strct.reduceRegions({
      collection: shapes,
      reducer: ee.Reducer.mean(),
      scale: 250
-  }).set('date', image.get('date')).flatten();
-// console.log(values);
-Export.table.toDrive(values,
-"fire_project",
-"fire_veg",
-"fire_veg");
+  }).flatten();
+console.log(values);
+//Export.table.toDrive(values,
+//"fire_project",
+//"fire_veg",
+//"fire_veg");
 
 /*
 var values = monthly_evi.map(function(image) {
