@@ -26,6 +26,7 @@ print(monthly_evi);
 
 
 
+
 var snow_terra = ee.ImageCollection("MODIS/006/MOD10A1")
         .filterDate(start, finish)
         .select(["NDSI_Snow_Cover","Snow_Albedo_Daily_Tile"]);
