@@ -18,8 +18,14 @@ print(biomass,'biomass');
  .filterDate(start,end)
  .mean().multiply(0.0001)
  .set('date', start);
+
+  var lai =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ .select('Lai_500m')
+ .filterDate(start,end)
+ .mean().multiply(0.1)
+ .set('date', start);
   var evi = eviterr.add(eviaqua).divide(2).set('date', start);
-  return evi;
+  return evi.add;
 }); 
 monthly_evi = ee.ImageCollection(monthly_evi);
 print(monthly_evi,'evi');
