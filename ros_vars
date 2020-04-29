@@ -55,9 +55,19 @@ var visParams = {
 var shapes = ee.FeatureCollection("users/dsandovalhdh/fire_perimeter_2011");
 Map.addLayer(biomass, visParams, 'Aboveground Live Woody Biomass');
 //Map.addLayer(shapes);
+var values=strct.reduceRegions({
+     collection: shapes,
+     reducer: ee.Reducer.mean(),
+     scale: 250
+  }).set('date', image.get('date')).flatten();
+// console.log(values);
+Export.table.toDrive(values,
+"fire_project",
+"fire_veg",
+"fire_veg");
 
-
-var values = strct.map(function(image) {
+/*
+var values = monthly_evi.map(function(image) {
   return image.reduceRegions({
      collection: shapes,
      reducer: ee.Reducer.mean(),
@@ -72,3 +82,9 @@ Export.table.toDrive(values,
 "fire_project",
 "fire_veg",
 "fire_veg");
+*/
+
+
+
+
+
