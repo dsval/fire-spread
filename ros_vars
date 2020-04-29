@@ -13,6 +13,7 @@ print(biomass,'biomass');
  .filterDate(start,end)
  .mean().multiply(0.0001)
  .set('date', start);
+ 
   var eviaqua = ee.ImageCollection("MODIS/006/MYD13Q1")
  .select('EVI')
  .filterDate(start,end)
@@ -24,14 +25,13 @@ print(biomass,'biomass');
  .filterDate(start,end)
  .mean().multiply(0.1)
  .set('date', start);
+ 
   var evi = eviterr.add(eviaqua).divide(2).set('date', start);
-  return evi.add;
+  
+  return evi.addBands(lai);
 }); 
 monthly_evi = ee.ImageCollection(monthly_evi);
 print(monthly_evi,'evi');
-
- var terrain = dem.addBands(slope).addBands(aspect);
- console.log(terrain);
 
  var palsar = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/SAR")
  .select('HH','HV')
