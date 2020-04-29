@@ -49,7 +49,7 @@ var visParams = {
   ],
 };
 //Map.setCenter(-69.43, 0.35, 3);
-Map.addLayer(liveWoodyBiomass, visParams, 'Aboveground Live Woody Biomass');
+Map.addLayer(biomass, visParams, 'Aboveground Live Woody Biomass');
 
 
 
@@ -57,7 +57,7 @@ Map.addLayer(liveWoodyBiomass, visParams, 'Aboveground Live Woody Biomass');
 
 
 
-
+/*
 
 var shapes = ee.FeatureCollection("users/dsandovalhdh/fire_perimeter_2011");
 var values = daily_prec.map(function(image) {
@@ -75,3 +75,4 @@ Export.table.toDrive(values,
 "test_radar_small",
 "tab_GE",
 "test_radar_small");
+*/
