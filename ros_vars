@@ -3,6 +3,7 @@ var finish = ee.Date('2011-12-31');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+print(biomass,'biomass');
 
  var monthly_evi = ee.List.sequence(0, 11).map(function(n) { // .sequence: number of months from starting year to present
   var start = ee.Date('2011-01-01').advance(n, 'month'); // Starting date
@@ -21,15 +22,16 @@ var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
   return evi;
 }); 
 monthly_evi = ee.ImageCollection(monthly_evi);
-print(monthly_evi);
+print(monthly_evi,'evi');
 
+ var terrain = dem.addBands(slope).addBands(aspect);
+ console.log(terrain);
 
+ var palsar = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/SAR")
+ .select('HH','HV')
+ .filterDate(start,end)
+ .pow(2).log10().multiply(10).subtract(83);
 
-
-
-var snow_terra = ee.ImageCollection("MODIS/006/MOD10A1")
-        .filterDate(start, finish)
-        .select(["NDSI_Snow_Cover","Snow_Albedo_Daily_Tile"]);
 
 var visParams = {
   min: 0.0,
