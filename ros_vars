@@ -35,8 +35,8 @@ print(monthly_evi,'evi');
 
  var palsar = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/SAR")
  .select('HH','HV')
- .filterDate(start,finish)
- .pow(2).log10().multiply(10).subtract(83);
+ .filterDate(start,finish);
+ //.pow(2).log10().multiply(10).subtract(83);
 print(palsar,'sar');
 
 var visParams = {
