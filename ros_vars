@@ -17,13 +17,13 @@ var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
  .filterDate(start,end)
  .mean().multiply(0.0001)
  .set('date', start);
-  var evi = eviterr.add(eviaqua).divide(2);
-  return fpar;
+  var evi = eviterr.add(eviaqua).divide(2).set('date', start);
+  return evi;
 }); 
-var monthly_fapar = ee.ImageCollection(monthly_fapar);
-print(monthly_fapar);
+monthly_evi = ee.ImageCollection(monthly_evi);
+print(monthly_evi);
 
-ee.ImageCollection("MODIS/006/MOD13Q1");
+
 
 
 var snow_terra = ee.ImageCollection("MODIS/006/MOD10A1")
