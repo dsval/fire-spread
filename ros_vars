@@ -39,7 +39,7 @@ print(monthly_evi,'evi');
  //.pow(2).log10().multiply(10).subtract(83);
 print(palsar,'sar');
 
-var strct = biomass.addBands(sar).addBands(monthly_evi);
+//var strct = biomass.addBands(sar);
 var visParams = {
   min: 0.0,
   max: 350.0,
