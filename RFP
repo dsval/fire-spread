@@ -1,5 +1,5 @@
 var start = ee.Date('2019-01-01');
-var finish = ee.Date('2019-12-31');
+var finish = ee.Date('2019-01-02');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
@@ -7,6 +7,9 @@ print(biomass,'biomass');
 
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
+
+var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").filterDate(start,finish);
+print(frp,'frp');
 
 /*
 
