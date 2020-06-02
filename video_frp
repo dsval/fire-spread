@@ -87,7 +87,7 @@ padding: '8px 15px'
  
 // Create legend title
 var legendTitle = ui.Label({
-value: 'n gauges',
+value: 'FRP (MW)',
 style: {
 fontWeight: 'bold',
 fontSize: '18px',
