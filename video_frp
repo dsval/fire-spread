@@ -59,7 +59,7 @@ animation = animation.map(function(image) {
 // Define GIF visualization parameters.
 var gifParams = {
   'region': bounds,
-  'dimensions': 200,
+  'dimensions': 100,
   
   'framesPerSecond': 10
 };
