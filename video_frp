@@ -34,7 +34,7 @@ var frpVis = {
   min: 0,
   max: 2000,
   palette: [
-    'blue', 'purple', 'cyan', 'green', 'yellow', 'red'
+     'purple', 'cyan', 'green', 'yellow', 'red'
   ]};  
   
 Map.addLayer(dqf, DQFVis, 'DQF');
