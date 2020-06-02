@@ -18,7 +18,7 @@ print(dqf,'dqf');
 var xmin = -142;  // On station as GOES-E
 var xmax = xmin + 135;
 Map.setCenter((xmin+xmax)/2, 15, 3);
-var geometry = ee.Geometry.Rectangle([-86, -32, -39, 10], null, true);
+var bounds = ee.Geometry.Rectangle([-86, -32, -39, 10], null, true);
 
 var DQFVis = {
   min: 0,
@@ -34,7 +34,14 @@ var DQFVis = {
   ]};
 Map.addLayer(dqf, DQFVis, 'DQF');
 
-
+//Export NDVI from whole study area to video
+Export.video.toDrive({
+  collection: dqf,
+  description: "fireamazon2019",    // Filename, no spaces allowed
+  framesPerSecond: 10,             // I.e., 1 year / second
+  region: bounds,
+  scale: 2000,                     // Scale in m
+  });
 
 
 
