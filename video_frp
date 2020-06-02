@@ -76,6 +76,68 @@ print(animation.getVideoThumbURL(gifParams));
 
 
 
+
+// set position of panel
+var legend = ui.Panel({
+style: {
+position: 'bottom-left',
+padding: '8px 15px'
+}
+});
+ 
+// Create legend title
+var legendTitle = ui.Label({
+value: 'n gauges',
+style: {
+fontWeight: 'bold',
+fontSize: '18px',
+margin: '0 0 4px 0',
+padding: '0'
+}
+});
+ 
+// Add the title to the panel
+legend.add(legendTitle);
+ 
+// create the legend image
+var lon = ee.Image.pixelLonLat().select('latitude');
+var gradient = lon.multiply((frpVis.max-frpVis.min)/100.0).add(frpVis.min);
+var legendImage = gradient.visualize(frpVis);
+ 
+// create text on top of legend
+var panel = ui.Panel({
+widgets: [
+ui.Label(precipitationVis['max'])
+],
+});
+ 
+legend.add(panel);
+ 
+// create thumbnail from the image
+var thumbnail = ui.Thumbnail({
+image: legendImage,
+params: {bbox:'0,0,10,100', dimensions:'10x200'},
+style: {padding: '1px', position: 'bottom-center'}
+});
+ 
+// add the thumbnail to the legend
+legend.add(thumbnail);
+ 
+// create text on top of legend
+var panel = ui.Panel({
+widgets: [
+ui.Label(precipitationVis['min'])
+],
+});
+ 
+legend.add(panel);
+ 
+Map.add(legend);
+
+
+
+
+
 /*
 //Export NDVI from whole study area to video
 Export.video.toDrive({
