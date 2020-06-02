@@ -1,6 +1,6 @@
 var start = ee.Date('2017-08-26');
 var finish = ee.Date('2017-08-29');
-var bbox = 
+var bounds = 
     /* color: #98ff00 */
     /* displayProperties: [
       {
@@ -32,7 +32,7 @@ var frpvid=frp.map(function(img){
 });
 
 
-var bounds = bbox.geometry().bounds();
+//var bounds = bbox.geometry().bounds();
 
 //make the data 8-bit which is necessary for making a video
 var ndvi_video =  frp.map(function(image){
