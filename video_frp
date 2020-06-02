@@ -37,14 +37,14 @@ Map.addLayer(dqf, DQFVis, 'DQF');
 
 
 // Create RGB visualization images for use as animation frames.
-var rgbVis = comp.map(function(img) {
+var rgbVis = dqf.map(function(img) {
   return img.visualize(DQFVis);
 });
 
 // Define GIF visualization parameters.
 var gifParams = {
   'region': bounds,
-  'dimensions': 600,
+  'dimensions': 200,
   'crs': 'EPSG:4326',
   'framesPerSecond': 10
 };
