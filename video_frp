@@ -42,7 +42,16 @@ var animation =  dqf.map(function(image){
   
   return image.visualize(DQFVis).clip(bounds).set({label: label});
 });
+// annotate
+var annotations = [
+  {
+    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale() * 2
+  }
+]
 
+animation = animation.map(function(image) {
+  return text.annotateImage(image, {}, bounds, annotations)
+})
 
 
 // Define GIF visualization parameters.
