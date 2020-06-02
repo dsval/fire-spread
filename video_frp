@@ -34,6 +34,15 @@ var DQFVis = {
   ]};
 Map.addLayer(dqf, DQFVis, 'DQF');
 
+
+
+// Create RGB visualization images for use as animation frames.
+var rgbVis = comp.map(function(img) {
+  return img.visualize(DQFVis).clip(mask);
+});
+
+
+
 //Export NDVI from whole study area to video
 Export.video.toDrive({
   collection: dqf,
