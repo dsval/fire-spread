@@ -1,5 +1,12 @@
 
 
+var precipitationVis = {
+  min: 0.0,
+  max: 50.0,
+  palette:
+      ['1621a2', 'ffffff', '03ffff', '13ff03', 'efff00', 'ffb103', 'ff2300'],
+};
+
 var rain_video=daily_prec.select('hourlyPrecipRateGC').map(function(img){
   return img.visualize(precipitationVis);
 });
