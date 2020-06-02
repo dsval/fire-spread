@@ -1,5 +1,5 @@
 var start = ee.Date('2019-08-01');
-var finish = ee.Date('2019-08-31');
+var finish = ee.Date('2019-08-02');
 
 var image = ee.Image('NOAA/GOES/16/FDCF/2019167024053900000');
 var area = image.select('Area');
@@ -10,7 +10,7 @@ var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(sta
                    return img.updateMask(mask);
                    });
 var dqf = ee.ImageCollection("NOAA/GOES/16/FDCF").select('DQF').filterDate(start,finish);   
-
+print(dqf,'dqf');
 
 
 
