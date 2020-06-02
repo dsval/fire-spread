@@ -14,7 +14,7 @@ print(FIRMS,'firms');
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
 
 
-var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").filterDate(start,finish);
+var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish);
 print(frp,'frp');
 var firesVis = {
   min: 0,
