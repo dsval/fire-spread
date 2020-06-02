@@ -27,7 +27,7 @@ var frpVis = {
   palette: ['white', 'blue', 'purple', 'cyan', 'green', 'yellow', 'red']
 };
 
-var rain_video=frp.map(function(img){
+var frpvid=frp.map(function(img){
   return img.visualize(frpVis);
 });
 //get pixels with more than 3 gauges
