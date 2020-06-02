@@ -32,24 +32,23 @@ var DQFVis = {
   ]};
 var frpVis = {
   min: 0,
-  max: 20000,
+  max: 2000,
   palette: [
-    'olive',  // Good quality fire free land
     'blue', 'purple', 'cyan', 'green', 'yellow', 'red'
   ]};  
   
 Map.addLayer(dqf, DQFVis, 'DQF');
 Map.addLayer(frp, frpVis, 'FRP');
 
-/*
+
 //add timestamp
 //make the data 8-bit which is necessary for making a video
-var animation =  dqf.map(function(image){
+var animation =  frp.map(function(image){
   var start = ee.Date(image.get('system:time_start'));
   var end = ee.Date(image.get('system:time_end'));
   var label = start.format('YYYY-MM-dd-HH:mm');
   
-  return image.visualize(DQFVis).clip(bounds).set({label: label});
+  return image.visualize(frpVis).clip(bounds).set({label: label});
 });
 // annotate
 var annotations = [
