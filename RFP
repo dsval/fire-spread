@@ -12,7 +12,11 @@ var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
-
+var burnedAreaVis = {
+  min: 30.0,
+  max: 341.0,
+  palette: ['4e0400', '951003', 'c61503', 'ff1901'],
+};
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
 /*
@@ -29,11 +33,7 @@ var firesVis = {
   palette: ['red', 'orange', 'yellow'],
 };
 
-var burnedAreaVis = {
-  min: 30.0,
-  max: 341.0,
-  palette: ['4e0400', '951003', 'c61503', 'ff1901'],
-};
+
 
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 Map.addLayer(frp, firesVis, 'frp');
