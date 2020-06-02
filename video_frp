@@ -1,0 +1,13 @@
+
+
+var rain_video=daily_prec.select('hourlyPrecipRateGC').map(function(img){
+  return img.visualize(precipitationVis);
+});
+//get pixels with more than 3 gauges
+Export.video.toDrive({
+  collection: rain_video,
+  description: 'daily rainfall',
+  dimensions: 180,
+  framesPerSecond: 12,
+  region: geometry
+});
