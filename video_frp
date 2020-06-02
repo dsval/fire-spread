@@ -1,4 +1,6 @@
-
+var start = ee.Date('2017-08-26');
+var finish = ee.Date('2017-08-29');
+var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var frpVis = {
   min: 1,
