@@ -12,7 +12,7 @@ var dqf = image.select('DQF');
 //                   var mask = img.gt(1);
 //                   return img.updateMask(mask);
 //                   });
-var dqf = ee.ImageCollection("NOAA/GOES/16/FDCF").select('DQF').filterDate(start,finish);   
+var dqf = ee.ImageCollection("NOAA/GOES/16/FDCF").select('DQF').filterDate(start,finish).filterBounds(bounds);   
 print(dqf,'dqf');
 
 var xmin = -142;  // On station as GOES-E
