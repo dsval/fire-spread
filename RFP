@@ -1,0 +1,60 @@
+var start = ee.Date('2011-01-01');
+var finish = ee.Date('2011-12-31');
+var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
+
+var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+print(biomass,'biomass');
+
+
+/*
+
+ var monthly_evi = ee.List.sequence(0, 11).map(function(n) { // .sequence: number of months from starting year to present
+  var start = ee.Date('2011-01-01').advance(n, 'month'); // Starting date
+  var end = start.advance(1, 'month'); // Step by each iteration
+  var eviterr = ee.ImageCollection("MODIS/006/MOD13Q1")
+ .select('EVI')
+ .filterDate(start,end)
+ .mean().multiply(0.0001)
+ .set('date', start);
+ 
+  var eviaqua = ee.ImageCollection("MODIS/006/MYD13Q1")
+ .select('EVI')
+ .filterDate(start,end)
+ .mean().multiply(0.0001)
+ .set('date', start);
+
+  var lai =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ .select('Lai_500m')
+ .filterDate(start,end)
+ .mean().multiply(0.1)
+ .set('date', start);
+ 
+  var evi = eviterr.add(eviaqua).divide(2).set('date', start);
+  
+  return evi.addBands(lai);
+}); 
+monthly_evi = ee.ImageCollection(monthly_evi);
+print(monthly_evi,'evi');
+
+ var palsar = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/SAR")
+ .select('HH','HV')
+.filterDate(ee.Date('2009-01-01'),ee.Date('2009-12-12')).
+palsar = ee.Image(palsar)
+.pow(2).log10().multiply(10).subtract(83);
+print(palsar,'sar');
+
+var strct = biomass.addBands(palsar);
+print(strct,'structure');
+var visParams = {
+  min: 0.0,
+  max: 350.0,
+  palette: [
+    'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',
+    '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',
+    '012E01', '011D01', '011301'
+  ],
+};
+//Map.setCenter(-69.43, 0.35, 3);
+var shapes = ee.FeatureCollection("users/dsandovalhdh/fire_perimeter_2011");
+Map.addLayer(biomass, visParams, 'Aboveground Live Woody Biomass');
+*/
