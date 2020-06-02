@@ -47,7 +47,7 @@ var animation =  dqf.map(function(image){
 // annotate
 var annotations = [
   {
-    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()
+    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()*0.5
   }
 ]
 
