@@ -1,3 +1,9 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = 
+    /* color: #d63000 */
+    /* shown: false */
+    ee.Geometry.MultiPoint();
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var start = ee.Date('2019-01-01');
 var finish = ee.Date('2019-12-31');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
@@ -10,6 +16,9 @@ print(burnt,'burnt');
 
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
+
+var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
+Map.addLayer(litter);
 
 //var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").filterDate(start,finish);
 //print(frp,'frp');
