@@ -1,5 +1,5 @@
-var start = ee.Date('2017-08-26');
-var finish = ee.Date('2017-08-29');
+var start = ee.Date('2019-01-01');
+var finish = ee.Date('2019-12-31');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
@@ -13,7 +13,9 @@ print(FIRMS,'firms');
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
 
+Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
+/*
 var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).map(function(img) {
                    var mask = img.gt(1);
                    return img.updateMask(mask);
