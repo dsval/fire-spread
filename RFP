@@ -5,11 +5,21 @@ var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false});
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
 
+var burnt = ee.ImageCollection("MODIS/006/MCD64A1").filterDate(start,finish);
+
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
 
 var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").filterDate(start,finish);
 print(frp,'frp');
+var firesVis = {
+  min: 325.0,
+  max: 400.0,
+  palette: ['red', 'orange', 'yellow'],
+};
+
+
+
 
 /*
 
