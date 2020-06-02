@@ -1,20 +1,24 @@
 var start = ee.Date('2017-08-26');
 var finish = ee.Date('2017-08-29');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
-
+var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).map(function(img) {
+                   var mask = img.gt(1);
+                   return img.updateMask(mask);
+                   });
+  
 var frpVis = {
   min: 1,
   max: 20000,
   palette: ['white', 'blue', 'purple', 'cyan', 'green', 'yellow', 'red']
 };
 
-var rain_video=daily_prec.select('hourlyPrecipRateGC').map(function(img){
+var rain_video=frp.map(function(img){
   return img.visualize(frpVis);
 });
 //get pixels with more than 3 gauges
 Export.video.toDrive({
-  collection: rain_video,
-  description: 'daily rainfall',
+  collection: frpvid,
+  description: 'frp_08_2017',
   dimensions: 180,
   framesPerSecond: 12,
   region: geometry
