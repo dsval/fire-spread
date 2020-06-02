@@ -17,7 +17,7 @@ var DQFVis = {
   palette: [
     'red',  // Good quality fire pixel
     'olive',           // Good quality fire free land
-    'teal',            // Opaque cloud
+    'dcd159',            // Opaque cloud
                        // Bad surface type, sunglint, LZA threshold exceeded,
     '1c0dff',   // off earth, or missing input data
     'lemonchiffon',    // Bad input data
