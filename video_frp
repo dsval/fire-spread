@@ -39,7 +39,9 @@ var frpVis = {
   ]};  
   
 Map.addLayer(dqf, DQFVis, 'DQF');
+Map.addLayer(frp, frpVis, 'FRP');
 
+/*
 //add timestamp
 //make the data 8-bit which is necessary for making a video
 var animation =  dqf.map(function(image){
