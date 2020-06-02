@@ -1,9 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var geometry = 
-    /* color: #d63000 */
-    /* shown: false */
-    ee.Geometry.MultiPoint();
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var start = ee.Date('2017-08-26');
 var finish = ee.Date('2017-08-29');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
@@ -18,13 +12,13 @@ var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
-Map.addLayer(litter);
+
 
 var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").filterDate(start,finish);
 print(frp,'frp');
 var firesVis = {
-  min: 325.0,
-  max: 400.0,
+  min: 0,
+  max: 20000,
   palette: ['red', 'orange', 'yellow'],
 };
 
@@ -35,6 +29,8 @@ var burnedAreaVis = {
 };
 
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
+Map.addLayer(frp, firesVis, 'frp');
+Map.addLayer(litter);
 /*
 
  var monthly_evi = ee.List.sequence(0, 11).map(function(n) { // .sequence: number of months from starting year to present
