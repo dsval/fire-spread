@@ -42,7 +42,7 @@ var ndvi_video =  frp.map(function(image){
   
   return image.visualize({
     forceRgbOutput: true,
-    palette: palettes.BrBG[9], //original palette was "000000", "fdbb84"
+    palette: frpVis, //original palette was "000000", "fdbb84"
     min: 0,
     max: 1
   }).clip(bounds).set({label: label});
