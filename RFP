@@ -5,6 +5,7 @@ var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false});
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
 
+var FIRMS = ee.ImageCollection("FIRMS");
 
 /*
 
