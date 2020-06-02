@@ -7,6 +7,8 @@ print(biomass,'biomass');
 
 var burnt = ee.ImageCollection("MODIS/006/MCD64A1").select('BurnDate').filterDate(start,finish).mean();
 print(burnt,'burnt');
+var mask = burnt.gt(1);
+burnt=burnt.updateMask(mask);
 
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
