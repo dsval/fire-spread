@@ -1,5 +1,5 @@
-var start = ee.Date('2019-08-26');
-var finish = ee.Date('2019-08-29');
+var start = ee.Date('2019-08-01');
+var finish = ee.Date('2019-08-31');
 
 var image = ee.Image('NOAA/GOES/16/FDCF/2019167024053900000');
 var area = image.select('Area');
@@ -18,7 +18,7 @@ var dqf = ee.ImageCollection("NOAA/GOES/16/FDCF").select('DQF').filterDate(start
 var xmin = -142;  // On station as GOES-E
 var xmax = xmin + 135;
 Map.setCenter((xmin+xmax)/2, 15, 3);
-var geometry = ee.Geometry.Rectangle([xmin, -65, xmax, 65], null, true);
+var geometry = ee.Geometry.Rectangle([xmin, -35, xmax, 20], null, true);
 
 var DQFVis = {
   min: 0,
