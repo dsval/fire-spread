@@ -33,7 +33,7 @@ var DQFVis = {
     'burlywood'        // Algorithm failure
   ]};
 Map.addLayer(dqf, DQFVis, 'DQF');
-
+/*
 // Fires are small enough that they are difficult to see at the scale of
 // an entire GOES image.  Buffer fires based on area to make them stand out.
 var area = area.reduceToVectors({
@@ -58,3 +58,4 @@ var temp = temp.reduceToVectors({
   return feature.buffer(ee.Number(feature.get('temp')).add(2).pow(1.3));
 });
 //Map.addLayer(temp, {color: 'red'}, 'temp');
+*/
