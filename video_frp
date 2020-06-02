@@ -68,9 +68,9 @@ ndvi_video = ndvi_video.map(function(image) {
 
 // add a few layers to map
 var animation = require('users/gena/packages:animation')
-animation.animate(ndvi_video, {maxFrames: 5})
+animation.animate(frp, {maxFrames: 200})
 
-Map.centerObject(bounds, 9)
+//Map.centerObject(bounds, 9)
 
 //Export NDVI from whole study area to video
 Export.video.toDrive({
