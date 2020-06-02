@@ -34,7 +34,7 @@ var frpVis = {
   min: 0,
   max: 20000,
   palette: [
-    'red',  // Good quality fire pixel
+    'olive',  // Good quality fire free land
     'olive',           // Good quality fire free land
     'dcd159',            // Opaque cloud
                        // Bad surface type, sunglint, LZA threshold exceeded,
