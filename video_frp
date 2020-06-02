@@ -1,5 +1,20 @@
 var start = ee.Date('2017-08-26');
 var finish = ee.Date('2017-08-29');
+var geometry = 
+    /* color: #98ff00 */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[-107.92522928693025, 56.74320901517033],
+          [-107.92522928693025, 53.241686620805645],
+          [-96.93890116193025, 53.241686620805645],
+          [-96.93890116193025, 56.74320901517033]]], null, false);
+
+
+
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).map(function(img) {
                    var mask = img.gt(1);
