@@ -71,7 +71,7 @@ var gifParams = {
 };
 
 // Print the GIF URL to the console.
-print(animation.getVideoThumbURL(gifParams));
+//print(animation.getVideoThumbURL(gifParams));
 
 
 
