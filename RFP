@@ -4,8 +4,8 @@ var geometry =
     /* shown: false */
     ee.Geometry.MultiPoint();
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var start = ee.Date('2019-01-01');
-var finish = ee.Date('2019-12-31');
+var start = ee.Date('2017-01-01');
+var finish = ee.Date('2017-12-31');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
