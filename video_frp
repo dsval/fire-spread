@@ -18,7 +18,7 @@ print(dqf,'dqf');
 var xmin = -142;  // On station as GOES-E
 var xmax = xmin + 135;
 Map.setCenter((xmin+xmax)/2, 15, 3);
-var geometry = ee.Geometry.Rectangle([xmin, -35, xmax, 20], null, true);
+var geometry = ee.Geometry.Rectangle([-86, -32, -39, 10], null, true);
 
 var DQFVis = {
   min: 0,
