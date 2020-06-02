@@ -23,7 +23,7 @@ Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 Export.image.toDrive({
   image: burnt,
   description: 'burnt_2019',
-  scale: 1,
+  scale: 1000,
   region: bbox
 });
 
