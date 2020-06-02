@@ -107,7 +107,7 @@ var legendImage = gradient.visualize(frpVis);
 // create text on top of legend
 var panel = ui.Panel({
 widgets: [
-ui.Label(precipitationVis['max'])
+ui.Label(frpVis['max'])
 ],
 });
  
@@ -126,7 +126,7 @@ legend.add(thumbnail);
 // create text on top of legend
 var panel = ui.Panel({
 widgets: [
-ui.Label(precipitationVis['min'])
+ui.Label(frpVis['min'])
 ],
 });
  
