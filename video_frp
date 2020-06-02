@@ -17,8 +17,7 @@ print(dqf,'dqf');
 var xmin = -142;  // On station as GOES-E
 var xmax = xmin + 135;
 Map.setCenter((xmin+xmax)/2, 15, 3);
-var bounds = ee.Geometry.Rectangle([-86, -32, -39, 13], null, true);
-
+var bounds = ee.Geometry.Rectangle([-60, -21, -56, -17], null, true);
 
 
 var DQFVis = {
@@ -59,7 +58,7 @@ animation = animation.map(function(image) {
 // Define GIF visualization parameters.
 var gifParams = {
   'region': bounds,
-  'dimensions': 100,
+  'dimensions': 200,
   
   'framesPerSecond': 10
 };
