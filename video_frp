@@ -31,8 +31,6 @@ var frpvid=frp.map(function(img){
   return img.visualize(frpVis);
 });
 
-//Create visualization palettes of NDVI
-print(palettes); //to see different palette options
 
 var bounds = geometry.geometry().bounds()
 
