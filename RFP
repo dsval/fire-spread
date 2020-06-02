@@ -1,3 +1,8 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = /* color: #98ff00 */ee.Geometry.MultiPoint(
+        [[-60.83686853274497, -17.694779052071606],
+         [-56.57417322024497, -21.318533135869046]]);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var start = ee.Date('2019-01-01');
 var finish = ee.Date('2019-12-31');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
