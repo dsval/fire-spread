@@ -1,7 +1,7 @@
 var utils = require('users/gena/packages:utils');
 var text = require('users/gena/packages:text');
 var start = ee.Date('2019-08-21');
-var finish = ee.Date('2019-08-23');
+var finish = ee.Date('2019-08-22');
 var bounds = ee.Geometry.Rectangle([-60, -21, -56, -17], null, true);
 
 var image = ee.Image('NOAA/GOES/16/FDCF/2019167024053900000');
@@ -47,7 +47,7 @@ var animation =  dqf.map(function(image){
 // annotate
 var annotations = [
   {
-    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()
+    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()*0.5
   }
 ]
 
