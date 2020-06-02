@@ -38,7 +38,7 @@ Map.addLayer(dqf, DQFVis, 'DQF');
 var animation =  dqf.map(function(image){
   var start = ee.Date(image.get('system:time_start'));
   var end = ee.Date(image.get('system:time_end'));
-  var label = start.format('YYYY-MM-dd').cat(' - ').cat(end.format('YYYY-MM-dd'));
+  var label = start.format('YYYY-MM-dd-HH:mm').cat(' - ').cat(end.format('YYYY-MM-dd-HH:mm'));
   
   return image.visualize(DQFVis).clip(bounds).set({label: label});
 });
