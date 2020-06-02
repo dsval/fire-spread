@@ -24,7 +24,7 @@ Export.image.toDrive({
   image: burnt,
   description: 'burnt_2019',
   scale: 1,
-  region: geometry
+  region: bbox
 });
 
 
