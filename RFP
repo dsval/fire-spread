@@ -6,6 +6,7 @@ var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
 
 var burnt = ee.ImageCollection("MODIS/006/MCD64A1").filterDate(start,finish);
+print(burnt,'burnt');
 
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
