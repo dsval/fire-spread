@@ -1,11 +1,12 @@
-var start = ee.Date('2011-01-01');
-var finish = ee.Date('2011-12-31');
+var start = ee.Date('2019-01-01');
+var finish = ee.Date('2019-12-31');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
 
-var FIRMS = ee.ImageCollection("FIRMS");
+var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
+print(FIRMS,'firms');
 
 /*
 
