@@ -1,5 +1,5 @@
-var start = ee.Date('2017-08-26');
-var finish = ee.Date('2017-08-29');
+var start = ee.Date('2019-08-26');
+var finish = ee.Date('2019-08-29');
 
 var image = ee.Image('NOAA/GOES/16/FDCF/2019167024053900000');
 var area = image.select('Area');
