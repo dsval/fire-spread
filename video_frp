@@ -80,7 +80,7 @@ Export.video.toDrive({
   });
   
   
-
+/*
 //get pixels with more than 3 gauges
 Export.video.toDrive({
   collection: frpvid,
@@ -89,3 +89,4 @@ Export.video.toDrive({
   framesPerSecond: 12,
   region: geometry
 });
+*/
