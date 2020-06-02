@@ -15,11 +15,11 @@ var DQFVis = {
   min: 0,
   max: 5,
   palette: [
-    'blanchedalmond',  // Good quality fire pixel
+    'red',  // Good quality fire pixel
     'olive',           // Good quality fire free land
     'teal',            // Opaque cloud
                        // Bad surface type, sunglint, LZA threshold exceeded,
-    'darkslateblue',   // off earth, or missing input data
+    '1c0dff',   // off earth, or missing input data
     'lemonchiffon',    // Bad input data
     'burlywood'        // Algorithm failure
   ]};
