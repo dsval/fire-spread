@@ -38,11 +38,24 @@ Map.addLayer(dqf, DQFVis, 'DQF');
 
 // Create RGB visualization images for use as animation frames.
 var rgbVis = comp.map(function(img) {
-  return img.visualize(DQFVis).clip(mask);
+  return img.visualize(DQFVis);
 });
 
+// Define GIF visualization parameters.
+var gifParams = {
+  'region': bounds,
+  'dimensions': 600,
+  'crs': 'EPSG:4326',
+  'framesPerSecond': 10
+};
+
+// Print the GIF URL to the console.
+print(rgbVis.getVideoThumbURL(gifParams));
 
 
+
+
+/*
 //Export NDVI from whole study area to video
 Export.video.toDrive({
   collection: dqf,
