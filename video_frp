@@ -11,7 +11,11 @@ var dqf = image.select('DQF');
 //                   });
 var dqf = ee.ImageCollection("NOAA/GOES/16/FDCF").select('DQF').filterDate(start,finish);   
 print(dqf,'dqf');
-
+//add timestamp
+dqf = dqf.map(function(image){
+  var start = ee.Date(image.get('system:time_start'))
+  var end = ee.Date(image.get('system:time_end'))
+  var label = start.format('YYYY-MM-dd').cat(' - ').cat(end.format('YYYY-MM-dd'));
 
 
 
