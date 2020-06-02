@@ -1,7 +1,7 @@
 var utils = require('users/gena/packages:utils')
 var text = require('users/gena/packages:text')
 var start = ee.Date('2019-08-01');
-var finish = ee.Date('2019-08-02');
+var finish = ee.Date('2019-08-31');
 
 var image = ee.Image('NOAA/GOES/16/FDCF/2019167024053900000');
 var area = image.select('Area');
@@ -17,7 +17,7 @@ print(dqf,'dqf');
 var xmin = -142;  // On station as GOES-E
 var xmax = xmin + 135;
 Map.setCenter((xmin+xmax)/2, 15, 3);
-var bounds = ee.Geometry.Rectangle([-86, -32, -39, 10], null, true);
+var bounds = ee.Geometry.Rectangle([-86, -32, -39, 13], null, true);
 
 
 
@@ -47,7 +47,7 @@ var animation =  dqf.map(function(image){
 // annotate
 var annotations = [
   {
-    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()*0.5
+    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()
   }
 ]
 
@@ -60,7 +60,7 @@ animation = animation.map(function(image) {
 var gifParams = {
   'region': bounds,
   'dimensions': 200,
-  'crs': 'EPSG:4326',
+  
   'framesPerSecond': 10
 };
 
