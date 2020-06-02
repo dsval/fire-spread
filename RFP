@@ -19,6 +19,16 @@ var burnedAreaVis = {
 };
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: burnt,
+  description: 'burnt_2019',
+  scale: 1,
+  region: geometry
+});
+
+
+
 /*
 var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).map(function(img) {
                    var mask = img.gt(1);
