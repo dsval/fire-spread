@@ -61,7 +61,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
 
 print(frp_yr,'fre');
 
-Map.addLayer(ee.Image(frp_yr.get(0)).select('Power'));
+Map.addLayer(ee.Image(frp_yr.get(0)).select('Power'),burnedAreaVis, 'burnedAreaVis');
 
 
 
