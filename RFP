@@ -113,6 +113,22 @@ frp_yr = ee.ImageCollection(frp_yr);
 
 print(frp_yr,'fre');
 
+var values = frp_yr.map(function(image) {
+  return image.reduceRegions({
+     collection: litter,
+     reducer: ee.Reducer.mean(),
+     scale: 1000
+  }).map(function(feature) {
+     // Add some identifying information from the image.
+     return feature.set('date', image.get('date'))
+  })
+}).flatten();
+// console.log(values);
+Export.table.toDrive(values,
+"Fire_analysis",
+"ROS_cor",
+"ROS_cor");
+
 //Map.addLayer(ee.Image(frp_yr.get(0)).select('Power'),burnedAreaVis, 'burnedAreaVis');
 
 
