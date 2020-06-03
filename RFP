@@ -104,7 +104,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
         .sum().toFloat()
         .set('date',start)
         ;
-  var alph = ec.sum(ei).sum(et);
+  var alph = ec.add(ei).add(et);
   alph= alph.divide(et);
  return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
  // return frp
