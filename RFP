@@ -20,8 +20,9 @@ print(FIRMS,'firms');
 // Define a mask to clip the  data by.
 var ame = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
 .filter(ee.Filter.eq('wld_rgn', 'America'));
-print(ame,'america')
+print(ame,'america');
 var bbox = ame.geometry().bounds();
+print(bbox,'america');
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
 print(litter,'litter');
