@@ -35,13 +35,6 @@ var burnedAreaVis = {
 };
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
-Export.image.toDrive({
-  image: frp,
-  description: 'frp_2017',
-  scale: 10000,
-  region: bbox
-});
-
 
 var values = frp.reduceRegions({
      collection: litter,
@@ -52,7 +45,7 @@ var values = frp.reduceRegions({
 }).flatten();
 
 
-print(values,'values');
+//print(values,'values');
 Export.table.toDrive(values,
 "Fire_analysis",
 "ROS_cor",
