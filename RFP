@@ -17,6 +17,9 @@ burnt=burnt.updateMask(mask);
 
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
+// Define a mask to clip the NDVI data by.
+var mask = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
+  .filter(ee.Filter.eq('wld_rgn', 'America'));
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
 print(litter,'litter');
