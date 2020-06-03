@@ -86,6 +86,14 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
 //frp_yr = ee.ImageCollection(frp_yr);
 
 print(frp_yr,'fre');
+
+Export.image.toDrive({
+  image: ee.Image(frp_yr.get(0)),
+  description: 'fre_2017',
+  scale: 2000,
+  region: bbox
+});
+
 /*
 var values = frp_yr.map(function(image) {
   return image.reduceRegions({
