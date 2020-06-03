@@ -47,7 +47,9 @@ var values = frp.reduceRegions({
      collection: litter,
      reducer: ee.Reducer.mean(),
      crs :'EPSG:4326',
-     scale: 2000}).flatten();
+     scale: 2000,
+     tileScale :8
+}).flatten();
 
 
 print(values,'values');
