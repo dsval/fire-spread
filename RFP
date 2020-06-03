@@ -45,15 +45,12 @@ Export.image.toDrive({
   region: bbox
 });
 
-/*
+
 var values = frp.reduceRegions({
      collection: litter,
      reducer: ee.Reducer.mean(),
      crs :'EPSG:4326',
-     scale: 2000}).map(function(feature) {
-     // Add some identifying information from the image.
-     return feature.set('date', frp.get('date'))
-  }).flatten();
+     scale: 2000}).flatten();
 
 
 print(values,'values');
