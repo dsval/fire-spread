@@ -38,7 +38,14 @@ var burnedAreaVis = {
 };
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
+Export.image.toDrive({
+  image: frp,
+  description: 'frp_2017',
+  scale: 10000,
+  region: bbox
+});
 
+/*
 var values = frp.reduceRegions({
      collection: litter,
      reducer: ee.Reducer.mean(),
