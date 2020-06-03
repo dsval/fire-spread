@@ -68,12 +68,12 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .filterDate(start,end)
  .sum().multiply(0.0008)
  .set('date', start);
- var aet =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ var aet =  ee.ImageCollection("MODIS/006/MOD16A2")
  .select('ET')
  .filterDate(start,end)
  .sum().multiply(0.8)
  .set('date', start);
- var pet =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ var pet = ee.ImageCollection("MODIS/006/MOD16A2")
  .select('PET')
  .filterDate(start,end)
  .sum().multiply(0.8)
