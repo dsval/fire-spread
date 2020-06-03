@@ -39,17 +39,16 @@ var burnedAreaVis = {
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
 
-var values = frp.map(function(image) {
-  return image.reduceRegions({
+var values = frp.reduceRegions({
      collection: litter,
      reducer: ee.Reducer.mean(),
      crs :'EPSG:4326',
-     scale: 1000
-  }).map(function(feature) {
+     scale: 1000}).map(function(feature) {
      // Add some identifying information from the image.
      return feature.set('date', image.get('date'))
-  })
-}).flatten();
+  }).flatten();
+
+
 // console.log(values);
 Export.table.toDrive(values,
 "Fire_analysis",
