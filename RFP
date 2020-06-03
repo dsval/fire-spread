@@ -21,10 +21,10 @@ print(FIRMS,'firms');
 var ame = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
 .filter(ee.Filter.eq('wld_rgn', 'America'));
 print(ame,'america');
-var bbox = ame.bounds();
-print(bbox,'bbox');
+//var bbox = ame.bounds();
+//print(bbox,'bbox');
 
-var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample").intersection(bbox, 1);
+var litter = ee.FeatureCollection("users/dsandovalhdh/litter_ame");
 print(litter,'litter');
 var burnedAreaVis = {
   min: 30.0,
