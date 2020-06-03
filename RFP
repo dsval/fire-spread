@@ -35,8 +35,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
   var frp = ee.ImageCollection('NOAA/GOES/16/FDCF')
         .filterDate(start, end)
         .select('Power').map(function(img) {
-                   var mask = img.gt(1);
-                   return img.updateMask(mask).multiply(900);
+                   return img.multiply(900);
                    })
         .sum().toFloat()
         .set('date',start)
@@ -55,7 +54,8 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
   
 
         
-  return frp.addBands(nreadings);
+ // return frp.addBands(nreadings);
+  return frp
 });
 //frp_yr = ee.ImageCollection(frp_yr);
 
