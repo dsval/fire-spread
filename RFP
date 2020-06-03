@@ -45,11 +45,11 @@ var values = frp.reduceRegions({
      crs :'EPSG:4326',
      scale: 1000}).map(function(feature) {
      // Add some identifying information from the image.
-     return feature.set('date', image.get('date'))
+     return feature.set('date', frp.get('date'))
   }).flatten();
 
 
-// console.log(values);
+print(values,'values');
 Export.table.toDrive(values,
 "Fire_analysis",
 "ROS_cor",
