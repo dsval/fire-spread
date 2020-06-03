@@ -18,7 +18,7 @@ burnt=burnt.updateMask(mask);
 var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
 
-var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
+var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample").reproject('EPSG:4326', null, 1000);
 print(litter,'litter');
 var burnedAreaVis = {
   min: 30.0,
