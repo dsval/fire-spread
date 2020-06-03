@@ -63,7 +63,48 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .min().multiply(0.1)
  .set('date', start);
  var dlai = laimax.subtract(laimin);
+ var gpp = ee.ImageCollection("CAS/IGSNRR/PML/V2")
+        .filterDate(start, end)
+        .select('GPP').map(function(img) {
+                   return img.multiply(8);
+                   })
+        .sum().toFloat()
+        .set('date',start)
+        ;
+   var ec = ee.ImageCollection("CAS/IGSNRR/PML/V2")
+        .filterDate(start, end)
+        .select('Ec').map(function(img) {
+                   return img.multiply(8);
+                   })
+        .sum().toFloat()
+        .set('date',start)
+        ;      
+  var es = ee.ImageCollection("CAS/IGSNRR/PML/V2")
+        .filterDate(start, end)
+        .select('Es').map(function(img) {
+                   return img.multiply(8);
+                   })
+        .sum().toFloat()
+        .set('date',start)
+        ;  
+  var ei = ee.ImageCollection("CAS/IGSNRR/PML/V2")
+        .filterDate(start, end)
+        .select('Ei').map(function(img) {
+                   return img.multiply(8);
+                   })
+        .sum().toFloat()
+        .set('date',start)
+        ;
         
+  var et = ee.ImageCollection("CAS/IGSNRR/PML/V2")
+        .filterDate(start, end)
+        .select('ET_water').map(function(img) {
+                   return img.multiply(8);
+                   })
+        .sum().toFloat()
+        .set('date',start)
+        ;
+  var alph = ;
  return frp.addBands(nreadings).addBands(dlai);
  // return frp
 });
