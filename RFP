@@ -36,10 +36,9 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
   var frp = ee.ImageCollection('NOAA/GOES/16/FDCF')
         .filterDate(start, end)
         .select('Power').map(function(img) {
-                   return img.multiply(900);
-                   })
-        .sum().toFloat()
-        .set('date',start).reproject('EPSG:4326', null, 1000)
+                   return img.toFloat().multiply(900);
+                   }).sum()
+        .reproject('EPSG:4326', null, 1000).set('date',start)
         ;
   //how many readings >0?
   var frps= ee.ImageCollection('NOAA/GOES/16/FDCF')
@@ -47,7 +46,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
         .select('Power')
         .map(function(img) {
                    var mask = img.gt(1);
-                   return img.updateMask(mask);
+                   return img.toFloat().updateMask(mask);
                    })
         .set('date',start)
         ;
@@ -80,8 +79,8 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .sum().multiply(0.8)
  .set('date', start);
   var alph= aet.divide(pet).toFloat().reproject('EPSG:4326', null, 1000);
- //return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
- return dlai.addBands(alph).addBands(gpp);
+ return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
+ //return dlai.addBands(alph).addBands(gpp);
 });
 frp_yr = ee.ImageCollection(frp_yr);
 
