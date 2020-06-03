@@ -62,9 +62,9 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .filterDate(start,end)
  .min().multiply(0.1)
  .set('date', start);
- var dlai = laimax.substract()
+ var dlai = laimax.subtract(laimin);
         
- return frp.addBands(nreadings);
+ return frp.addBands(nreadings).addBands(dlai);
  // return frp
 });
 frp_yr = ee.ImageCollection(frp_yr);
