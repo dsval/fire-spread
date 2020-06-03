@@ -38,7 +38,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
         .select('Power').map(function(img) {
                    return img.toFloat().multiply(900);
                    }).sum()
-        .reproject('EPSG:4326', null, 1000).set('date',start)
+        .reproject('EPSG:4326', null, 1000).toFloat().set('date',start)
         ;
   //how many readings >0?
   var frps= ee.ImageCollection('NOAA/GOES/16/FDCF')
