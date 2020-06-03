@@ -27,7 +27,7 @@ var burnedAreaVis = {
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
 
 //aggregation to daaily
-var frp_yr = ee.List.sequence(0, 4).map(function(n) { // .sequence: number of years from starting year to present
+var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of years from starting year to present
   var start = ee.Date('2017-01-01').advance(n, 'year'); // Starting date
   var end = start.advance(1, 'year'); // Step by each iteration
   
@@ -57,12 +57,14 @@ var frp_yr = ee.List.sequence(0, 4).map(function(n) { // .sequence: number of ye
         
   return frp.addBands(nreadings);
 });
-var frp_yr = ee.ImageCollection(frp_yr);
-print(frp_yr,fre)
+frp_yr = ee.ImageCollection(frp_yr);
+print(frp_yr,'fre');
+
+Map.addLayer(frp_yr.select('Power'));
 
 
 
-
+/*
 // Export the image, specifying scale and region.
 Export.image.toDrive({
   image: burnt,
