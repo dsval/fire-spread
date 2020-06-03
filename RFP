@@ -25,14 +25,9 @@ var burnedAreaVis = {
   palette: ['4e0400', '951003', 'c61503', 'ff1901'],
 };
 Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
-var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).map(function(img) {
-                   var mask = img.gt(1);
-                   return img.updateMask(mask);
-                   });
-print(frp,'frp');
-/*
+
 //aggregation to daaily
-var daily_prec = ee.List.sequence(0, 4).map(function(n) { // .sequence: number of years from starting year to present
+var frp_yr = ee.List.sequence(0, 4).map(function(n) { // .sequence: number of years from starting year to present
   var start = ee.Date('2017-01-01').advance(n, 'year'); // Starting date
   var end = start.advance(1, 'year'); // Step by each iteration
   
@@ -46,33 +41,24 @@ var daily_prec = ee.List.sequence(0, 4).map(function(n) { // .sequence: number o
         .sum()
         .set('date',start)
         ;
-  var mhours= ee.ImageCollection('JAXA/GPM_L3/GSMaP/v6/reanalysis')
+  //how many readings >0?
+  var frps= ee.ImageCollection('NOAA/GOES/16/FDCF')
         .filterDate(start, end)
-        .select('hourlyPrecipRateGC')
-        .set('date',start).map(function(img) {
-                   var mask = img.gt(0.5);
+        .select('Power')
+        .map(function(img) {
+                   var mask = img.gt(1);
                    return img.updateMask(mask);
                    })
-        ;
-  var nhours=  mhours.count();
-  
-  var qf= ee.ImageCollection('JAXA/GPM_L3/GSMaP/v6/reanalysis')
-        .filterDate(start, end)
-        .select('gaugeQualityInfo')
-        .median()
         .set('date',start)
         ;
-  var temp= ee.ImageCollection('NASA/GLDAS/V021/NOAH/G025/T3H')
-        .filterDate(start, end)
-        .select('Tair_f_inst')
-        .mean()
-        .set('date',start).subtract(273.15)
-        ;
-        
-  return prec.addBands(temp).addBands(nhours).addBands(qf);
-});
-var daily_prec = ee.ImageCollection(daily_prec);
+  var nreadings=  frps.count();
+  
 
+        
+  return frp.addBands(nreadings);
+});
+var frp_yr = ee.ImageCollection(frp_yr);
+print(frp_yr,fre)
 
 
 
