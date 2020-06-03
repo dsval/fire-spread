@@ -87,7 +87,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
   var alph= aet.divide(pet).toFloat().reproject('EPSG:4326', null, 1000);
  //return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
  //return dlai.addBands(alph).addBands(gpp);
- return frp.addBands(nreadings);
+ return frp;
 });
 frp_yr = ee.ImageCollection(frp_yr);
 
