@@ -79,13 +79,14 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .sum().multiply(0.8)
  .set('date', start);
   var alph= aet.divide(pet).toFloat().reproject('EPSG:4326', null, 1000);
- return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
+ //return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
  //return dlai.addBands(alph).addBands(gpp);
+ return frp.addBands(nreadings);
 });
-frp_yr = ee.ImageCollection(frp_yr);
+//frp_yr = ee.ImageCollection(frp_yr);
 
 print(frp_yr,'fre');
-
+/*
 var values = frp_yr.map(function(image) {
   return image.reduceRegions({
      collection: litter,
