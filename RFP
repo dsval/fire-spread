@@ -38,7 +38,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
                    var mask = img.gt(1);
                    return img.updateMask(mask).multiply(900);
                    })
-        .sum()
+        .sum().toFloat()
         .set('date',start)
         ;
   //how many readings >0?
@@ -51,7 +51,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
                    })
         .set('date',start)
         ;
-  var nreadings=  frps.count();
+  var nreadings=  frps.count().toFloat();
   
 
         
