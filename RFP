@@ -63,7 +63,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .min().multiply(0.1)
  .set('date', start);
  var dlai = laimax.subtract(laimin);
- var gpp =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ var gpp =  ee.ImageCollection("MODIS/006/MOD17A2H")
  .select('Gpp')
  .filterDate(start,end)
  .sum().multiply(0.0008)
