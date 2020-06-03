@@ -40,7 +40,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
   
 // 900 secs per 15 min
   var frp = ee.ImageCollection('NOAA/GOES/16/FDCF')
-        .filterDate(start, end)
+        .filterDate(start, end).filterBounds(bbox)
         .select('Power').map(function(img) {
                    return img.toFloat().multiply(900);
                    }).sum()
@@ -48,7 +48,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
         ;
   //how many readings >0?
   var frps= ee.ImageCollection('NOAA/GOES/16/FDCF')
-        .filterDate(start, end)
+        .filterDate(start, end).filterBounds(bbox)
         .select('Power')
         .map(function(img) {
                    var mask = img.gt(1);
@@ -59,7 +59,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
   var nreadings=  frps.count().toFloat().reproject('EPSG:4326', null, 1000);
   
   var laimax =  ee.ImageCollection("MODIS/006/MYD15A2H")
- .select('Lai_500m')
+ .select('Lai_500m').filterBounds(bbox)
  .filterDate(start,end)
  .max().multiply(0.1)
  .set('date', start);
@@ -70,17 +70,17 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .set('date', start);
  var dlai = laimax.subtract(laimin).toFloat().reproject('EPSG:4326', null, 1000);
  var gpp =  ee.ImageCollection("MODIS/006/MOD17A2H")
- .select('Gpp')
+ .select('Gpp').filterBounds(bbox)
  .filterDate(start,end)
  .sum().multiply(0.0008)
  .set('date', start).toFloat().reproject('EPSG:4326', null, 1000);
  var aet =  ee.ImageCollection("MODIS/006/MOD16A2")
- .select('ET')
+ .select('ET').filterBounds(bbox)
  .filterDate(start,end)
  .sum().multiply(0.8)
  .set('date', start);
  var pet = ee.ImageCollection("MODIS/006/MOD16A2")
- .select('PET')
+ .select('PET').filterBounds(bbox)
  .filterDate(start,end)
  .sum().multiply(0.8)
  .set('date', start);
