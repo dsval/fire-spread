@@ -22,9 +22,9 @@ var ame = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
 .filter(ee.Filter.eq('wld_rgn', 'America'));
 print(ame,'america');
 
-var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).sum();
+//var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).sum();
 //var bbox = ame.bounds();
-print(frp,'frp');
+//print(frp,'frp');
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_ame");
 print(litter,'litter');
@@ -97,7 +97,26 @@ frp_yr = ee.ImageCollection(frp_yr);
 
 print(frp_yr,'fre');
 
+var values = frp_yr.map(function(image) {
+  return image.reduceRegions({
+     collection: litter,
+     reducer: ee.Reducer.mean(),
+     crs :'EPSG:4326',
+     scale: 1000,
+      tileScale :8
+  })});
 
+// console.log(values);
+Export.table.toDrive(values,
+"Fire_analysis",
+"ROS_cor",
+"ROS_cor");
+
+//Map.addLayer(ee.Image(frp_yr.get(0)).select('Power'),burnedAreaVis, 'burnedAreaVis');
+
+
+
+/*
 var values = frp_yr.map(function(image) {
   return image.reduceRegions({
      collection: litter,
@@ -110,17 +129,6 @@ var values = frp_yr.map(function(image) {
      return feature.set('date', image.get('date'));
   });
 });
-// console.log(values);
-Export.table.toDrive(values,
-"Fire_analysis",
-"ROS_cor",
-"ROS_cor");
-
-//Map.addLayer(ee.Image(frp_yr.get(0)).select('Power'),burnedAreaVis, 'burnedAreaVis');
-
-
-
-/*
 // Export the image, specifying scale and region.
 Export.image.toDrive({
   image: burnt,
