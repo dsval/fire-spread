@@ -22,10 +22,7 @@ var ame = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
 .filter(ee.Filter.eq('wld_rgn', 'America'));
 print(ame,'america');
 
-var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).map(function(img) {
-                   var mask = img.gt(1);
-                   return img.updateMask(mask);
-                   }).sum();
+var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).sum();
 //var bbox = ame.bounds();
 print(frp,'frp');
 
