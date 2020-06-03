@@ -5,7 +5,7 @@ var geometry = /* color: #98ff00 */ee.Geometry.MultiPoint(
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var start = ee.Date('2019-01-01');
 var finish = ee.Date('2019-01-02');
-//var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false}); 
+var bbox = ee.Geometry.Rectangle({coords:[-168.199948,-55.877669,-30.412549,71.462030],geodesic:false}); 
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
@@ -21,10 +21,10 @@ print(FIRMS,'firms');
 var ame = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
 .filter(ee.Filter.eq('wld_rgn', 'America'));
 print(ame,'america');
-var bbox = ame.geometry().bounds();
-print(bbox,'america');
+var bbox = ame.bounds();
+print(bbox,'bbox');
 
-var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
+var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample").intersection(bbox, 1);
 print(litter,'litter');
 var burnedAreaVis = {
   min: 30.0,
