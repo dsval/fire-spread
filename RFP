@@ -52,7 +52,17 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
         ;
   var nreadings=  frps.count().toFloat();
   
-
+  var laimax =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ .select('Lai_500m')
+ .filterDate(start,end)
+ .max().multiply(0.1)
+ .set('date', start);
+  var laimin =  ee.ImageCollection("MODIS/006/MYD15A2H")
+ .select('Lai_500m')
+ .filterDate(start,end)
+ .min().multiply(0.1)
+ .set('date', start);
+ var dlai = laimax.substract()
         
  return frp.addBands(nreadings);
  // return frp
