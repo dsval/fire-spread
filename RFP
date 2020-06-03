@@ -90,6 +90,7 @@ print(frp_yr,'fre');
 Export.image.toDrive({
   image: ee.Image(frp_yr.get(0)),
   description: 'fre_2017',
+  maxPixels: 1e10,
   scale: 2000,
   region: bbox
 });
