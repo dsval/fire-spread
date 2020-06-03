@@ -19,7 +19,7 @@ var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
 // Define a mask to clip the  data by.
 var ame = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
-  .filter(ee.Filter.eq('wld_rgn', 'America'));
+.filter(ee.Filter.eq('wld_rgn', 'America'));
 print(ame,'america')
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
