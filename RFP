@@ -19,6 +19,7 @@ var FIRMS = ee.ImageCollection("FIRMS").filterDate(start,finish);
 print(FIRMS,'firms');
 
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
+print(litter,'litter');
 var burnedAreaVis = {
   min: 30.0,
   max: 341.0,
@@ -38,7 +39,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
                    return img.multiply(900);
                    })
         .sum().toFloat()
-        .set('date',start)
+        .set('date',start).reproject('EPSG:4326', null, 1000)
         ;
   //how many readings >0?
   var frps= ee.ImageCollection('NOAA/GOES/16/FDCF')
@@ -50,7 +51,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
                    })
         .set('date',start)
         ;
-  var nreadings=  frps.count().toFloat();
+  var nreadings=  frps.count().toFloat().reproject('EPSG:4326', null, 1000);
   
   var laimax =  ee.ImageCollection("MODIS/006/MYD15A2H")
  .select('Lai_500m')
@@ -62,12 +63,12 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .filterDate(start,end)
  .min().multiply(0.1)
  .set('date', start);
- var dlai = laimax.subtract(laimin);
+ var dlai = laimax.subtract(laimin).toFloat().reproject('EPSG:4326', null, 1000);
  var gpp =  ee.ImageCollection("MODIS/006/MOD17A2H")
  .select('Gpp')
  .filterDate(start,end)
  .sum().multiply(0.0008)
- .set('date', start);
+ .set('date', start).toFloat().reproject('EPSG:4326', null, 1000);
  var aet =  ee.ImageCollection("MODIS/006/MOD16A2")
  .select('ET')
  .filterDate(start,end)
@@ -78,7 +79,7 @@ var frp_yr = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of ye
  .filterDate(start,end)
  .sum().multiply(0.8)
  .set('date', start);
-  var alph= aet.divide(pet);
+  var alph= aet.divide(pet).toFloat().reproject('EPSG:4326', null, 1000);
  return frp.addBands(nreadings).addBands(dlai).addBands(alph).addBands(gpp);
  // return frp
 });
