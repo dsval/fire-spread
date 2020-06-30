@@ -10,7 +10,7 @@ print(biomass,'biomass');
 //var bbox = ame.bounds();
 //print(frp,'frp');
 
-var litter = ee.FeatureCollection("users/dsandovalhdh/litter_ame");
+var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
 print(litter,'litter');
 
 Map.addLayer(litter);
