@@ -13,7 +13,7 @@ print(biomass,'biomass');
 var litter = ee.FeatureCollection("users/dsandovalhdh/litter_sample");
 print(litter,'litter');
 
-Map.addLayer(litter, 'burnedAreaVis');
+Map.addLayer(litter);
 //aggregation to monthly
 var data_month = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of years from starting year to present
   var start = ee.Date('2003-01-01').advance(n, 'month'); // Starting date
