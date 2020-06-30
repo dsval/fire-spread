@@ -1,0 +1,56 @@
+var start = ee.Date('2019-01-01');
+var finish = ee.Date('2019-01-02');
+var bbox = ee.Geometry.Rectangle({coords:[-168.199948,-55.877669,-30.412549,71.462030],geodesic:false}); 
+
+var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+print(biomass,'biomass');
+
+
+//var frp = ee.ImageCollection("NOAA/GOES/16/FDCF").select('Power').filterDate(start,finish).sum();
+//var bbox = ame.bounds();
+//print(frp,'frp');
+
+var litter = ee.FeatureCollection("users/dsandovalhdh/litter_ame");
+print(litter,'litter');
+var burnedAreaVis = {
+  min: 30.0,
+  max: 341.0,
+  palette: ['4e0400', '951003', 'c61503', 'ff1901'],
+};
+Map.addLayer(burnt, burnedAreaVis, 'burnedAreaVis');
+
+
+
+//aggregation to monthly
+var data_month = ee.List.sequence(0, 3).map(function(n) { // .sequence: number of years from starting year to present
+  var start = ee.Date('2003-01-01').advance(n, 'month'); // Starting date
+  var end = start.advance(1, 'month'); // Step by each iteration
+  
+  var laimean=  ee.ImageCollection("MODIS/006/MYD15A2H")
+ .select('Lai_500m').filterBounds(bbox)
+ .filterDate(start,end)
+ .mean().multiply(0.1)
+ .set('date', start);
+ 
+ return laimean;
+ //return dlai.addBands(alph).addBands(gpp);
+ //return frp;
+});
+data_month = ee.ImageCollection(data_month);
+
+print(data_month,'data_month');
+
+var values = data_month.map(function(image) {
+  return image.reduceRegions({
+     collection: litter,
+     reducer: ee.Reducer.mean(),
+     crs :'EPSG:4326',
+     scale: 500,
+      tileScale :8
+  })});
+
+// console.log(values);
+Export.table.toDrive(values,
+"Fire_analysis",
+"ROS_cor",
+"ROS_cor");
