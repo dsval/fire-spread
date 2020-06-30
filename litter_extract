@@ -40,7 +40,7 @@ var values = data_month.map(function(image) {
      scale: 1000
   }).map(function(feature) {
      // Add some identifying information from the image.
-     return feature.set('date', image.date().format())
+     return feature.set('date', image.get('date'))
   })
 }).flatten();
 // console.log(values);
