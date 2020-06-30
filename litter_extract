@@ -15,12 +15,12 @@ print(litter,'litter');
 
 Map.addLayer(litter);
 //aggregation to monthly
-var data_month = ee.List.sequence(0, 1).map(function(n) { // .sequence: number of years from starting year to present
+var data_month = ee.List.sequence(0, 4).map(function(n) { // .sequence: number of years from starting year to present
   var start = ee.Date('2003-01-01').advance(n, 'month'); // Starting date
   var end = start.advance(1, 'month'); // Step by each iteration
   
   var laimean=  ee.ImageCollection("MODIS/006/MYD15A2H")
- .select('Lai_500m').filterBounds(bbox)
+ .select('Lai_500m')
  .filterDate(start,end)
  .mean().multiply(0.1)
  .set('date', start);
@@ -46,7 +46,7 @@ var values = data_month.map(function(image) {
   })
 }).flatten();
 
-print(values,'values');
+//print(values,'values');
 Export.table.toDrive(values,
 "Fire_analysis",
 "ROS_cor",
