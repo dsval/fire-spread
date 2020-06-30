@@ -33,19 +33,17 @@ data_month = ee.ImageCollection(data_month);
 
 print(data_month,'data_month');
 
-//get values
+
 var values = data_month.map(function(image) {
   return image.reduceRegions({
      collection: litter,
      reducer: ee.Reducer.mean(),
-     crs: 'EPSG:4326',
-     scale: 500
-  });
-});
+     crs :'EPSG:4326',
+     scale: 1000,
+      tileScale :8
+  })});
 
-
-
-//print(values,'values');
+// console.log(values);
 Export.table.toDrive(values,
 "Fire_analysis",
 "ROS_cor",
