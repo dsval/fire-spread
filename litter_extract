@@ -33,16 +33,16 @@ data_month = ee.ImageCollection(data_month);
 
 print(data_month,'data_month');
 
-
 var values = data_month.map(function(image) {
   return image.reduceRegions({
      collection: litter,
      reducer: ee.Reducer.mean(),
-     crs :'EPSG:4326',
-     scale: 1000,
-      tileScale :8
-  })});
-
+     scale: 1000
+  }).map(function(feature) {
+     // Add some identifying information from the image.
+     return feature.set('date', image.date().format())
+  })
+}).flatten();
 // console.log(values);
 Export.table.toDrive(values,
 "Fire_analysis",
