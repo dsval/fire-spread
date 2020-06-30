@@ -42,9 +42,11 @@ var values = data_month.map(function(image) {
      scale: 500
   }).map(function(feature) {
      // Add some identifying information from the image.
-     return feature.set('date', image.get('date'))
-  })
-}).flatten();
+     return feature.set('date', image.get('date'));
+  });
+});
+
+
 
 //print(values,'values');
 Export.table.toDrive(values,
