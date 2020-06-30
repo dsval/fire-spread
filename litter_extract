@@ -22,7 +22,7 @@ var data_month = ee.List.sequence(0, 4).map(function(n) { // .sequence: number o
   var laimean=  ee.ImageCollection("MODIS/006/MYD15A2H")
  .select('Lai_500m')
  .filterDate(start,end)
- .mean().multiply(0.1)
+ .mean().multiply(0.1).reproject('EPSG:4326', null, 500)
  .set('date', start);
  
  return laimean;
