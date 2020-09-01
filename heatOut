@@ -5,8 +5,8 @@ var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
 //load raw FRP, force all to the same projections
-var FRPmod=ee.ImageCollection("MODIS/006/MOD14A1").filterDate(start, end).select('MaxFRP').max();
-var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterDate(start, end).select('MaxFRP').max();
+var FRPmod=ee.ImageCollection("MODIS/006/MOD14A1").filterDate(start, end).select('MaxFRP').max().multiply(0.1);
+var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterDate(start, end).select('MaxFRP').max().multiply(0.1);
 
 var FRPmax = FRPmod.addBands(FRPmyd);
 // Reduce the image to get a one-band maximum value image.
@@ -16,6 +16,18 @@ print(FRPmax,'FRPmax');
 var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:1000});
 print(pixelarea,'area');
 var Homax=FRPmax.divide(pixelarea);
+var firesVis = {
+  min: 1000,
+  max: 20000,
+  palette: ['red', 'orange', 'yellow'],
+};
+
+Map.addLayer(Homax, firesVis, 'Homax');
+
+
+
+
+
 
 //get max value.
 var maxFRPvalue = Homax.reduceRegion({
@@ -25,6 +37,7 @@ var maxFRPvalue = Homax.reduceRegion({
   maxPixels: 1e11,
   bestEffort: true
 });
+
 
 Export.table.toDrive({
   collection: ee.FeatureCollection([
