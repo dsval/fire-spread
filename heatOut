@@ -17,7 +17,7 @@ print(FRPmax,'FRPmax');
 
 var maxFRPvalue = FRPmax.reduceRegion({
   reducer: ee.Reducer.max(),
-  geometry: bbox.geometry(),
+  geometry: bbox,
   scale: 1000,
   maxPixels: 1e15
 });
