@@ -4,17 +4,31 @@ var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
 //load biomass
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
-//load raw FRP
+//load raw FRP, force all to the same projections
 var FRPmod=ee.ImageCollection("MODIS/006/MOD14A1").filterDate(start, end).select('MaxFRP').max();
 var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterDate(start, end).select('MaxFRP').max();
 
 var FRPmax = FRPmod.addBands(FRPmyd);
 // Reduce the image to get a one-band maximum value image.
-var FRPmax = FRPmax.reduce(ee.Reducer.max());
+var FRPmax = FRPmax.reduce(ee.Reducer.max()).reproject({crs:'EPSG:4326',scale:1000});
 print(FRPmax,'FRPmax');
 // get area per pixel m2
-var area  = FRPmax.pixelArea();
+var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:1000});
+print(area,'area');
+var Homax=FRPmax.divide(pixelarea);
+
 //get max value.
+
+Export.table.toDrive({
+  collection: ee.FeatureCollection([
+    ee.Feature(null, Homax)
+  ]),
+  description: 'Homax_from_FRP',
+  fileFormat: 'CSV'
+});
+
+
+
 /*
 var maxFRPvalue = FRPmax.reduceRegion({
   reducer: ee.Reducer.max(),
