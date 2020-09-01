@@ -21,3 +21,4 @@ var maxFRPvalue = FRPmax.reduceRegion({
   scale: 1000,
   maxPixels: 1e15
 });
+print(maxFRPvalue,'maxFRPvalue');
