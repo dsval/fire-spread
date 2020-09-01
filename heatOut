@@ -18,10 +18,16 @@ print(pixelarea,'area');
 var Homax=FRPmax.divide(pixelarea);
 
 //get max value.
+var maxFRPvalue = Homax.reduceRegion({
+  reducer: ee.Reducer.max(),
+  geometry: bbox,
+  scale: 1000,
+  maxPixels: 1e11
+});
 
 Export.table.toDrive({
   collection: ee.FeatureCollection([
-    ee.Feature(null, Homax)
+    ee.Feature(null, maxFRPvalue)
   ]),
   description: 'Homax_from_FRP',
   fileFormat: 'CSV'
@@ -34,7 +40,17 @@ var maxFRPvalue = FRPmax.reduceRegion({
   reducer: ee.Reducer.max(),
   geometry: bbox,
   scale: 1000,
-  maxPixels: 1e15
+  maxPixels: 1e11
 });
+
+var ridiculousComputation = ee.Image(1).reduceRegion({
+  reducer: 'count',
+  geometry: ee.Geometry.Rectangle([-180, -90, 180, 90], null, false),
+  scale: 100,
+  maxPixels: 1e11
+});
+
+
+
 print(maxFRPvalue,'maxFRPvalue');
 */
