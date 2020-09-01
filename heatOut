@@ -1,0 +1,15 @@
+var start = ee.Date('2001-01-01');
+var finish = ee.Date('2020-09-01');
+var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
+
+var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+print(biomass,'biomass');
+
+
+// Reduce the region. The region parameter is the Feature geometry.
+var meanDictionary = image.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  geometry: region.geometry(),
+  scale: 30,
+  maxPixels: 1e9
+});
