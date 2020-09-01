@@ -35,7 +35,8 @@ var maxFRPvalue = Homax.reduceRegion({
   geometry: bbox,
   scale: 1000,
   maxPixels: 1e11,
-  bestEffort: true
+  bestEffort: true,
+  tileScale: 16
 });
 
 
