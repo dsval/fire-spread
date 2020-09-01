@@ -22,7 +22,8 @@ var maxFRPvalue = Homax.reduceRegion({
   reducer: ee.Reducer.max(),
   geometry: bbox,
   scale: 1000,
-  maxPixels: 1e11
+  maxPixels: 1e11,
+  bestEffort: true
 });
 
 Export.table.toDrive({
