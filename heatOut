@@ -7,12 +7,17 @@ print(biomass,'biomass');
 //load raw FRP
 var FRPmod=ee.ImageCollection("MODIS/006/MOD14A1").filterDate(start, end).select('MaxFRP').max();
 var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterDate(start, end).select('MaxFRP').max();
-// Reduce the region. The region parameter is the Feature geometry.
 
+var FRPmax = FRPmod.addBands(FRPmyd);
+// Reduce the image to get a one-band maximum value image.
+var FRPmax = FRPmax.reduce(ee.Reducer.max());
+print(FRPmax,'FRPmax');
 
-var meanDictionary = image.reduceRegion({
-  reducer: ee.Reducer.mean(),
-  geometry: region.geometry(),
-  scale: 30,
-  maxPixels: 1e9
+//get max value.
+
+var maxFRPvalue = FRPmax.reduceRegion({
+  reducer: ee.Reducer.max(),
+  geometry: bbox.geometry(),
+  scale: 1000,
+  maxPixels: 1e15
 });
