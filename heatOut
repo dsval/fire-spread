@@ -14,7 +14,7 @@ var FRPmax = FRPmax.reduce(ee.Reducer.max()).reproject({crs:'EPSG:4326',scale:10
 print(FRPmax,'FRPmax');
 // get area per pixel m2
 var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:1000});
-print(area,'area');
+print(pixelarea,'area');
 var Homax=FRPmax.divide(pixelarea);
 
 //get max value.
