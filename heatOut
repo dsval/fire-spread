@@ -12,9 +12,10 @@ var FRPmax = FRPmod.addBands(FRPmyd);
 // Reduce the image to get a one-band maximum value image.
 var FRPmax = FRPmax.reduce(ee.Reducer.max());
 print(FRPmax,'FRPmax');
-
+// get area per pixel m2
+var area  = FRPmax.pixelArea();
 //get max value.
-
+/*
 var maxFRPvalue = FRPmax.reduceRegion({
   reducer: ee.Reducer.max(),
   geometry: bbox,
@@ -22,3 +23,4 @@ var maxFRPvalue = FRPmax.reduceRegion({
   maxPixels: 1e15
 });
 print(maxFRPvalue,'maxFRPvalue');
+*/
