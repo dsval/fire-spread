@@ -24,23 +24,12 @@ var firesVis = {
 
 Map.addLayer(Homax, firesVis, 'Homax');
 
-//get max value.
-var maxFRPvalue = Homax.reduceRegion({
-  reducer: ee.Reducer.max(),
-  geometry: bbox,
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: Homax,
+  description: 'max_frp',
   scale: 10000,
-  maxPixels: 1e11,
-  bestEffort: true,
-  tileScale: 8
-});
-
-
-Export.table.toDrive({
-  collection: ee.FeatureCollection([
-    ee.Feature(null, maxFRPvalue)
-  ]),
-  description: 'Homax_from_FRP',
-  fileFormat: 'CSV'
+  region: bbox
 });
 
 
