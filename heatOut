@@ -10,20 +10,43 @@ var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterDate(start, end).select
 
 var FRPmax = FRPmod.addBands(FRPmyd);
 // Reduce the image to get a one-band maximum value image.
-var FRPmax = FRPmax.reduce(ee.Reducer.max()).reproject({crs:'EPSG:4326',scale:1000});
+var FRPmax = FRPmax.reduce(ee.Reducer.max()).reproject({crs:'EPSG:4326',scale:10000});
 print(FRPmax,'FRPmax');
 // get area per pixel m2
-var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:1000});
+var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:10000});
 print(pixelarea,'area');
 var Homax=FRPmax.divide(pixelarea);
 var firesVis = {
-  min: 1000,
-  max: 20000,
+  min: 0,
+  max: 20,
   palette: ['red', 'orange', 'yellow'],
 };
 
 Map.addLayer(Homax, firesVis, 'Homax');
 
+//get max value.
+var maxFRPvalue = Homax.reduceRegion({
+  reducer: ee.Reducer.max(),
+  geometry: bbox,
+  scale: 10000,
+  maxPixels: 1e11,
+  bestEffort: true,
+  tileScale: 8
+});
+
+
+Export.table.toDrive({
+  collection: ee.FeatureCollection([
+    ee.Feature(null, maxFRPvalue)
+  ]),
+  description: 'Homax_from_FRP',
+  fileFormat: 'CSV'
+});
+
+
+
+
+/*
 // Export the image, specifying scale and region.
 Export.image.toDrive({
   image: Homax,
