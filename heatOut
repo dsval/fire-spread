@@ -24,7 +24,13 @@ var firesVis = {
 
 Map.addLayer(Homax, firesVis, 'Homax');
 
-
+// Export the image, specifying scale and region.
+Export.image.toDrive({
+  image: Homax,
+  description: 'max_frp',
+  scale: 5000,
+  region: bbox
+});
 
 
 
