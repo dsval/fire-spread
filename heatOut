@@ -28,7 +28,7 @@ Map.addLayer(Homax, firesVis, 'Homax');
 
 
 
-
+/*
 //get max value.
 var maxFRPvalue = Homax.reduceRegion({
   reducer: ee.Reducer.max(),
