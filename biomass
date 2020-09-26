@@ -19,3 +19,23 @@ var readLband = function(img){
 var Lband = LbandRAW.map(readLband);
 
 print(Lband,'Lband');
+////////////////////////////////////////////////////////////////////////////////////
+// Load the Sentinel-1 ImageCollection.
+///////////////////////////////////////////////////////////////////////////////////
+var start = ee.Date('2019-01-01');
+var end = ee.Date('2019-12-1');
+var sentinel1 = ee.ImageCollection('COPERNICUS/S1_GRD') .filter(ee.Filter.date(start, end));
+
+// Filter by metadata properties.
+var Cband = sentinel1
+  // Filter to get images with VV and VH dual polarization.
+  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HH'))
+  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HV'))
+  // Filter to get images collected in interferometric wide swath mode.
+  .filter(ee.Filter.eq('instrumentMode', 'IW'));
+
+print(Cband,'Cband');
+
+// Display as a composite of polarization and backscattering characteristics.
+Map.addLayer(Cband);
+Map.addLayer(Lband);
