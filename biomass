@@ -4,10 +4,18 @@ var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
 
 var biomass_whrc = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass_whrc,'biomass');
-var eviterr = ee.ImageCollection("MODIS/006/MOD13Q1")
- .select('EVI')
- .filterDate(start,end)
- .mean().multiply(0.0001)
- .set('date', start);
- 
-  var sarHV = dataset.select('HV').max().pow(2).log10().multiply(10).subtract(83).divide(angle);
+var LbandRAW = ee.ImageCollection('JAXA/ALOS/PALSAR/YEARLY/SAR')
+                  .filter(ee.Filter.date(start, end));
+ // var rawangle = dataset.select('angle').mean();
+  //var mask = rawangle.gt(35);
+var readLband = function(img){
+  var angle= img.select('angle').divide(180).multiply(Math.PI).cos();
+  var sarHh = img.select('HH').max().pow(2).log10().multiply(10).subtract(83).divide(angle);
+      //sarHh= sarHh.updateMask(mask);
+  var sarHV = img.select('HV').max().pow(2).log10().multiply(10).subtract(83).divide(angle);
+  return sarHh.addBands(sarHV);
+};
+
+var Lband = LbandRAW.map(readLband);
+
+print(Lband,'Lband');
