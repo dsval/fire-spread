@@ -1,6 +1,11 @@
-var start = ee.Date('2019-01-01');
+var start = ee.Date('2007-01-01');
 var finish = ee.Date('2019-01-02');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
 
-var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
-print(biomass,'biomass');
+var biomass_whrc = ee.Image('WHRC/biomass/tropical').select('Mg');
+print(biomass_whrc,'biomass');
+var eviterr = ee.ImageCollection("MODIS/006/MOD13Q1")
+ .select('EVI')
+ .filterDate(start,end)
+ .mean().multiply(0.0001)
+ .set('date', start);
