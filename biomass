@@ -23,7 +23,7 @@ print(Lband,'Lband');
 // Load the Sentinel-1 ImageCollection.
 ///////////////////////////////////////////////////////////////////////////////////
 var start = ee.Date('2019-01-01');
-var end = ee.Date('2019-12-1');
+var end = ee.Date('2019-01-31');
 var sentinel1 = ee.ImageCollection('COPERNICUS/S1_GRD') .filter(ee.Filter.date(start, end));
 
 // Filter by metadata properties.
