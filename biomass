@@ -32,7 +32,9 @@ var Cband = sentinel1
   .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HH'))
   .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HV'))
   // Filter to get images collected in interferometric wide swath mode.
-  .filter(ee.Filter.eq('instrumentMode', 'IW'));
+  .filter(ee.Filter.eq('instrumentMode', 'IW'))
+  .filter(ee.Filter.eq('orbitProperties_pass', 'DESCENDING'))
+  .select('HH');
 
 print(Cband,'Cband');
 
