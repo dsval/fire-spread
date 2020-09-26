@@ -30,7 +30,7 @@ var sentinel1 = ee.ImageCollection('COPERNICUS/S1_GRD') .filter(ee.Filter.date(s
 var Cband = sentinel1
   // Filter to get images with VV and VH dual polarization.
   .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HH'))
-  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HV'))
+  //.filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'HV'))
   // Filter to get images collected in interferometric wide swath mode.
   .filter(ee.Filter.eq('instrumentMode', 'IW'))
   //.filter(ee.Filter.eq('orbitProperties_pass', 'DESCENDING'))
