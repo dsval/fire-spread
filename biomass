@@ -9,3 +9,5 @@ var eviterr = ee.ImageCollection("MODIS/006/MOD13Q1")
  .filterDate(start,end)
  .mean().multiply(0.0001)
  .set('date', start);
+ 
+  var sarHV = dataset.select('HV').max().pow(2).log10().multiply(10).subtract(83).divide(angle);
