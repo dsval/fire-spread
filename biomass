@@ -1,4 +1,4 @@
-var start = ee.Date('2007-01-01');
+var start = ee.Date('2000-01-01');
 var end = ee.Date('2019-01-02');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
 
