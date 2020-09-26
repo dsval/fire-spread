@@ -1,5 +1,5 @@
 var start = ee.Date('2007-01-01');
-var finish = ee.Date('2019-01-02');
+var end = ee.Date('2019-01-02');
 var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
 
 var biomass_whrc = ee.Image('WHRC/biomass/tropical').select('Mg');
@@ -10,9 +10,9 @@ var LbandRAW = ee.ImageCollection('JAXA/ALOS/PALSAR/YEARLY/SAR')
   //var mask = rawangle.gt(35);
 var readLband = function(img){
   var angle= img.select('angle').divide(180).multiply(Math.PI).cos();
-  var sarHh = img.select('HH').max().pow(2).log10().multiply(10).subtract(83).divide(angle);
+  var sarHh = img.select('HH').pow(2).log10().multiply(10).subtract(83).divide(angle);
       //sarHh= sarHh.updateMask(mask);
-  var sarHV = img.select('HV').max().pow(2).log10().multiply(10).subtract(83).divide(angle);
+  var sarHV = img.select('HV').pow(2).log10().multiply(10).subtract(83).divide(angle);
   return sarHh.addBands(sarHV);
 };
 
