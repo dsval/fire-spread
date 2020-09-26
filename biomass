@@ -1,0 +1,6 @@
+var start = ee.Date('2019-01-01');
+var finish = ee.Date('2019-01-02');
+var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
+
+var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
+print(biomass,'biomass');
