@@ -1,0 +1,7 @@
+var ros2003 = ee.ImageCollection("users/dsandovalhdh/ros_2003_2006").map(function(img) {
+                   return img.reproject('EPSG:4326', null, 1000);
+                   });
+print(ros2003,'ros2003');
+
+var test = ee.Image('users/dsandovalhdh/ROS/Global_fire_atlas_V1_speed_2003');
+Map.addLayer(ros2003, {min: 0, max: 10}, 'FMDS');

@@ -1,20 +1,20 @@
 var start = ee.Date('2001-01-01');
 var end = ee.Date('2020-09-01');
-var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,60],geodesic:false});
-//load biomass
+var bbox = ee.Geometry.Rectangle({coords:[-60, -21, -56, -17],geodesic:false});
+//load biomass -180,-90,180,60
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
 //load raw FRP, force all to the same projections
-var FRPmod=ee.ImageCollection("MODIS/006/MOD14A1").filterDate(start, end).select('MaxFRP').max().multiply(0.1);
-var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterDate(start, end).select('MaxFRP').max().multiply(0.1);
+var FRPmod=ee.ImageCollection("MODIS/006/MOD14A1").filterBounds(bbox).filterDate(start, end).select('MaxFRP').max().multiply(0.1);
+var FRPmyd=ee.ImageCollection("MODIS/006/MYD14A1").filterBounds(bbox).filterDate(start, end).select('MaxFRP').max().multiply(0.1);
 
 var FRPmax = FRPmod.addBands(FRPmyd);
 // Reduce the image to get a one-band maximum value image.
-var FRPmax = FRPmax.reduce(ee.Reducer.max()).reproject({crs:'EPSG:4326',scale:10000});
+var FRPmax = FRPmax.reduce(ee.Reducer.max()).reproject({crs:'EPSG:4326',scale:1000});
 print(FRPmax,'FRPmax');
 // get area per pixel m2
-var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:10000});
-print(pixelarea,'area');
+var pixelarea = ee.Image.pixelArea().reproject({crs:'EPSG:4326',scale:1000}).clip(bbox);
+//print(pixelarea,'area');
 var Homax=FRPmax.divide(pixelarea);
 var firesVis = {
   min: 0,
@@ -22,13 +22,13 @@ var firesVis = {
   palette: ['red', 'orange', 'yellow'],
 };
 
-Map.addLayer(Homax, firesVis, 'Homax');
+//Map.addLayer(Homax, firesVis, 'Homax');
 
 // Export the image, specifying scale and region.
 Export.image.toDrive({
   image: Homax,
-  description: 'max_frp',
-  scale: 10000,
+  description: 'max_frp_1km',
+  scale: 1000,
   region: bbox
 });
 

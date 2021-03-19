@@ -1,0 +1,119 @@
+var utils = require('users/gena/packages:utils');
+var text = require('users/gena/packages:text');
+var bounds = ee.Geometry.Rectangle([-125.216751,38.420277,-117.132287,48.953600], null, true);
+
+var T_K = ee.List.sequence(0, 38).map(function(n) { // .sequence: number of years from starting year to present
+  var start = ee.Date('1982-01-01').advance(n, 'year'); // Starting date
+  var end = start.advance(1, 'year'); // Step by each iteration
+/////////////////////////////////////////////////////////
+//// LST Landsat 4 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L4 = ee.ImageCollection("LANDSAT/LT04/C01/T1_SR")
+                .filterDate(start, end).filterBounds(bounds)
+                .select('B6').map(function(img) {
+                   var mask = img.lt(15000);
+                   return img.updateMask(mask).multiply(0.1).rename('T_K');
+                   }).max();
+//print(Thermal_L4, 'T l4');
+
+//Map.addLayer(Thermal_L4, vis_therm, 'thermal L4');
+/////////////////////////////////////////////////////////
+//// LST Landsat 5 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L5 = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR")
+                .filterDate(start, end).filterBounds(bounds)
+                .select('B6').map(function(img) {
+                   var mask = img.lt(15000);
+                   return img.updateMask(mask).multiply(0.1).rename('T_K');
+                   }).max();
+//print(Thermal_L5, 'T l5');
+//Map.addLayer(Thermal_L5, vis_therm, 'thermal L5');
+/////////////////////////////////////////////////////////
+//// LST Landsat 7 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L7 = ee.ImageCollection("LANDSAT/LE07/C01/T1_SR")
+                .filterDate(start, end).filterBounds(bounds)
+                .select('B6').map(function(img) {
+                   return img.multiply(0.1).rename('T_K');
+                   }).max();
+//print(Thermal_L7, 'T l7');
+//Map.addLayer(Thermal_L7, vis_therm, 'thermal L7');
+/////////////////////////////////////////////////////////
+//// LST Landsat 8 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L8 = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+                .filterDate(start, end).filterBounds(bounds)
+                .select('B10').map(function(img) {
+                   return img.multiply(0.1).rename('T_K');
+                   }).max();
+//print(Thermal_L8, 'T l8');
+//Map.addLayer(Thermal_L8, vis_therm, 'thermal L8');
+//var Thermal_landsat = ee.ImageCollection([Thermal_L4, Thermal_L5,Thermal_L7,Thermal_L8]).max();
+//print(Thermal_landsat, 'Thermal_landsat');
+ //return Thermal_landsat;
+ // get fire power in kW/m2
+var Thermal_landsat = Thermal_L4.addBands(Thermal_L5).addBands(Thermal_L7).addBands(Thermal_L8);
+ return Thermal_landsat.reduce(ee.Reducer.max()).pow(4).multiply(5.670374419e-8).multiply(0.924).set('system:time_start',start);
+ //return frp;
+});
+
+T_K = ee.ImageCollection(T_K);
+print(T_K,'FRP/A');
+
+//var vis_therm = {min: 273.15, max: 400, palette: ['blue', 
+//'cyan','white', 'green','yellow','orange','red']};
+/*
+var vis_therm = {
+  min: 273.15,
+  max: 400.0,
+  palette: [
+    '0602ff', '235cb1', '307ef3', '269db1', '30c8e2', '32d3ef', '3ae237',
+    'b5e22e', 'd6e21f', 'fff705', 'ffd611', 'ffb613', 'ff8b13', 'ff6e08',
+    'ff500d', 'ff0000', 'de0101', 'c21301'
+  ],
+};
+*/
+var vis_therm = {
+  min: 0,
+  max: 700,
+  palette: [
+    'black', 'cyan', 'green', 'yellow', 'red'
+  ]};  
+//Map.addLayer(ee.Image(T_K.get(1)), vis_therm, 'thermal L8');
+Map.addLayer(T_K, vis_therm, 'thermal L8');
+
+/////////////////////////////////////////////////////
+////////// animation parameters
+/////////////////////////////////////////////////////
+var animation =  T_K.map(function(image){
+  var start = ee.Date(image.get('system:time_start'));
+  var end = ee.Date('1996-01-01');
+  var label = start.format('YYYY');
+  
+  return image.visualize(vis_therm).clip(bounds).set({label: label});
+});
+
+// annotate
+var annotations = [
+  {
+    position: 'left', offset: '1%', margin: '1%', property: 'label', scale: Map.getScale()*2
+  }
+]
+
+animation = animation.map(function(image) {
+  return text.annotateImage(image, {}, bounds, annotations)
+})
+
+
+// Define GIF visualization parameters.
+var gifParams = {
+  'region': bounds,
+  'dimensions': 300,
+  
+  'framesPerSecond': 2
+};
+
+// Print the GIF URL to the console.
+print(animation.getVideoThumbURL(gifParams));
+
+

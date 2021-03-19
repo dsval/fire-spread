@@ -1,0 +1,52 @@
+/////////////////////////////////////////////////////////
+//// LST Landsat 4 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L4 = ee.ImageCollection("LANDSAT/LT04/C01/T1_SR")
+                .filterDate(ee.Date('1982-01-01'), ee.Date('1993-01-01'))
+                .select('B6').map(function(img) {
+                   var mask = img.lt(17000);
+                   return img.updateMask(mask).multiply(0.1).rename('T_K');
+                   }).max();
+print(Thermal_L4, 'T l4');
+var vis_therm = {min: 273.15, max: 400, palette: ['blue', 
+'cyan','white', 'green','yellow','orange','red']};
+//Map.addLayer(Thermal_L4, vis_therm, 'thermal L4');
+/////////////////////////////////////////////////////////
+//// LST Landsat 5 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L5 = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR")
+                .filterDate(ee.Date('1984-01-01'), ee.Date('2012-05-05'))
+                .select('B6').map(function(img) {
+                   var mask = img.lt(15000);
+                   return img.updateMask(mask).multiply(0.1).rename('T_K');
+                   }).max();
+print(Thermal_L5, 'T l5');
+//Map.addLayer(Thermal_L5, vis_therm, 'thermal L5');
+/////////////////////////////////////////////////////////
+//// LST Landsat 7 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L7 = ee.ImageCollection("LANDSAT/LE07/C01/T1_SR")
+                .filterDate(ee.Date('1999-01-01'), ee.Date('2020-09-30'))
+                .select('B6').map(function(img) {
+                   return img.multiply(0.1).rename('T_K');
+                   }).max();
+print(Thermal_L7, 'T l7');
+//Map.addLayer(Thermal_L7, vis_therm, 'thermal L7');
+/////////////////////////////////////////////////////////
+//// LST Landsat 8 Kelvin
+////////////////////////////////////////////////////////
+var Thermal_L8 = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+                .filterDate(ee.Date('2013-04-11'), ee.Date('2020-10-12'))
+                .select('B10').map(function(img) {
+                   return img.multiply(0.1).rename('T_K');
+                   }).max();
+print(Thermal_L8, 'T l8');
+//Map.addLayer(Thermal_L8, vis_therm, 'thermal L8');
+var Thermal_landsat = ee.ImageCollection([Thermal_L4, Thermal_L5,Thermal_L7,Thermal_L8]).max();
+print(Thermal_landsat, 'Thermal_landsat');
+var lst_plot =Thermal_landsat.reproject('EPSG:4326', null, 5000).reduceResolution({
+      reducer: ee.Reducer.mean(),
+      maxPixels: 1132
+    });
+print(lst_plot, 'Thermal_landsat');
+Map.addLayer(lst_plot, vis_therm, 'Thermal_landsat');

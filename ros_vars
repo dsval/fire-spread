@@ -4,7 +4,20 @@ var bbox = ee.Geometry.Rectangle({coords:[-180,-90,180,90],geodesic:false});
 
 var biomass = ee.Image('WHRC/biomass/tropical').select('Mg');
 print(biomass,'biomass');
-
+//users/potapovpeter/GEDI_V27
+var canH = ee.ImageCollection("users/potapovpeter/GEDI_V27");
+print(canH,'canopy height');
+var visParams = {
+  min: 0.0,
+  max: 30.0,
+  palette: [
+    'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',
+    '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',
+    '012E01', '011D01', '011301'
+  ],
+};
+Map.addLayer(canH, visParams, 'Aboveground Live Woody Biomass');
+/*
  var monthly_evi = ee.List.sequence(0, 11).map(function(n) { // .sequence: number of months from starting year to present
   var start = ee.Date('2011-01-01').advance(n, 'month'); // Starting date
   var end = start.advance(1, 'month'); // Step by each iteration

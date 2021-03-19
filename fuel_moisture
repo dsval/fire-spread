@@ -1,0 +1,51 @@
+var bbox = ee.Geometry.Rectangle({coords:[-180,-60,180,84],geodesic:false});
+var start = ee.Date('2015-01-01');
+var end = ee.Date('2018-12-31');
+var MOD16A2 = ee.ImageCollection("MODIS/006/MOD16A2").filterDate(start,end);
+var calc_alpha = function(image) {
+  return image.expression(
+    '(b1)/b2', {
+      'b1': image.select('ET'),
+      'b2': image.select('PET')
+}).unmask(-9999)};
+
+var alpha = MOD16A2.map(calc_alpha);
+// set null values as -999
+
+print(alpha,'alpha');
+Map.addLayer(alpha);
+
+
+var shapes = ee.FeatureCollection("users/dsandovalhdh/fuelmoisture_extract");
+Map.addLayer(shapes);
+
+var values = alpha.map(function(image) {
+  return image.reduceRegions({
+     collection: shapes,
+     reducer: ee.Reducer.mean(),
+     crs:'EPSG:4326',
+     tileScale: 16,
+     scale: 500
+  }).map(function(f){
+        return f.set('date', image.get('system:index'));
+    });
+}).flatten();
+print(values.limit(20),'values');
+
+
+//; error, multiple points same coordinates
+
+
+Export.table.toDrive({
+  collection:values,
+  folder: "fuelmoisture_db",
+  selectors:(["code","date","mean",".geo"]),
+  });
+/*
+Export.table.toDrive(values,
+"fuelmoisture_db",
+"fuelmoisture_db",
+"fuelmoisture_db");
+//Map.addLayer(PML,
+// {min: [0, 0, 0], max: [10, 10, 20], bands: ['Es' , 'Ec','ET_water']}, 'PML');
+*/

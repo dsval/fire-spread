@@ -1,0 +1,46 @@
+//load  vegetation
+var ESA_LC_glob = ee.ImageCollection("COPERNICUS/Landcover/100m/Proba-V-C3/Global")
+              .filterDate(ee.Date('2019-01-01'), ee.Date('2020-01-01'));
+var FMDS = ee.Image("users/dsandovalhdh/LC20_F40_200").reproject('EPSG:4326', null, 1000);
+print(FMDS,'FMDS');
+var ESA_LC = ee.Image(ESA_LC_glob.first()).select(['bare-coverfraction','grass-coverfraction','shrub-coverfraction' , 'tree-coverfraction']).updateMask(FMDS);
+print(ESA_LC,'ESA_LC');
+
+Map.addLayer(ESA_LC,
+ {min: [0, 0, 0], max: [100, 100, 100], bands: ['grass-coverfraction','tree-coverfraction' , 'shrub-coverfraction']}, 'ESA_LC');
+Map.addLayer(FMDS, {min: 91, max: 193}, 'FMDS');
+
+var df =FMDS.addBands(ESA_LC);
+print(df,'df');
+/////////////////// Random Forests
+// Make a training dataset by sampling the stacked images.
+var training = df.sample({
+  //region: bbox,
+  scale: 1000,
+  numPixels: 10000
+});
+//train the classifier 20 random forests
+var bands = ['bare-coverfraction','grass-coverfraction','shrub-coverfraction' , 'tree-coverfraction'];
+var classifier = ee.Classifier.smileRandomForest(20)
+  .train(training, 'b1', bands);
+
+
+// classify world
+ESA_LC_glob =ee.Image(ESA_LC_glob.first());
+var glob_FMDLS = ESA_LC_glob.classify(classifier);
+//Classifier.smileRandomForest
+print(glob_FMDLS,'glob_FMDLS');
+Map.addLayer(glob_FMDLS, {min: 91, max: 193}, 'glob_FMDLS');
+/*
+var samples = df.stratifiedSample({
+  numPoints:5000,
+  //region: region,
+  geometries: false,
+
+});
+//print(samples,'samples');
+Export.table.toDrive(samples,
+"Fire_analysis",
+"firemodels_sample",
+"firemodels_sample");
+*/
