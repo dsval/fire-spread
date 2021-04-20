@@ -77,8 +77,9 @@ for (i in 1:40){
 	df[[i]]$Mx<-rep(fuelModels$Mx_dead[i],length(df[[i]][,1]))
 }
 df<-do.call(rbind,df)
+rothermel.df$Heat.source..kW.m2.[rothermel.df$Heat.source..kW.m2.>600]<-NA
 df$H_src<-rothermel.df$Heat.source..kW.m2.
-df<-subset(df,df$H_src<=600)
+#df<-subset(df,df$H_src<=600)
 ############################################################################
 ## 4. fit logistic eqn 1st approx, assume 600 kW/m2 as max heat source
 ############################################################################
@@ -90,11 +91,11 @@ coeff_mod1_glm<--1*coefficients(mod1_glm)
 #############################################################################
 #### 5. fit non linear eqn
 #############################################################################
-mod2_nls<-nls(H_src~600/(1+exp(k1+k2*dead_load+k3*live_load+k4*sav_dead+k5*sav_live+k6*Mx+k7*m+k8*u)),
-			data=df,
-start = list(k1=coeff_mod1_glm[1],k2=coeff_mod1_glm[2],k3=coeff_mod1_glm[3],
-			k4=coeff_mod1_glm[4],k5=coeff_mod1_glm[5],k6=coeff_mod1_glm[6],k7=coeff_mod1_glm[7],k8=coeff_mod1_glm[8])
-	)
+# mod2_nls<-nls(H_src~600/(1+exp(k1+k2*dead_load+k3*live_load+k4*sav_dead+k5*sav_live+k6*Mx+k7*m+k8*u)),
+# 			data=df,
+# start = list(k1=coeff_mod1_glm[1],k2=coeff_mod1_glm[2],k3=coeff_mod1_glm[3],
+# 			k4=coeff_mod1_glm[4],k5=coeff_mod1_glm[5],k6=coeff_mod1_glm[6],k7=coeff_mod1_glm[7],k8=coeff_mod1_glm[8])
+# 	)
 	
 mod2_nls<-nls(H_src~kmax/(1+exp(k1+k2*total_load+k3*sav_mean+k4*ratioWood+k5*bed+k6*Mx+k7*m+k8*u)),
 		data=df,
